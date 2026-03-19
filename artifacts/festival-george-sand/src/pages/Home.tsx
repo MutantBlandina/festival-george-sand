@@ -36,25 +36,39 @@ export default function Home() {
             className="w-full h-full object-cover"
             style={{ objectPosition: "70% center" }}
           />
-          {/* Left-to-right gradient so text is readable but right side (face) stays visible */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
-          {/* Bottom fade for smooth transition to next section */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          {/* Subtle overall darkening — no heavy left gradient */}
+          <div className="absolute inset-0 bg-black/25" />
+          {/* Strong bottom-only fade for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" style={{ backgroundSize: "100% 70%", backgroundRepeat: "no-repeat", backgroundPosition: "bottom" }} />
           <div className="grain-overlay" />
         </div>
         
         {/* Content pinned to bottom-left */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
+            {/* Decorative pre-title line */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="origin-left mb-6"
+            >
+              <div className="flex items-center gap-4">
+                <div className="h-[2px] w-12 bg-primary-foreground" />
+                <span className="font-display text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground">Festival de cinéma · Berry · 2026</span>
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight leading-[1] text-white">
-                Festival <br />
-                George Sand <br />
-                <span className="text-2xl md:text-3xl tracking-widest font-medium">du court métrage</span>
+              <h1 className="font-display font-bold uppercase tracking-tight leading-[0.92]"
+                style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+                <span className="block text-5xl md:text-6xl lg:text-7xl text-white">Festival</span>
+                <span className="block text-5xl md:text-6xl lg:text-7xl text-primary-foreground">George Sand</span>
+                <span className="block text-2xl md:text-3xl lg:text-4xl text-white font-medium tracking-[0.15em] mt-2">du court métrage</span>
               </h1>
             </motion.div>
             
@@ -62,10 +76,11 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-6"
+              className="mt-6 max-w-lg"
             >
-              <p className="text-lg md:text-xl font-sans font-light leading-relaxed text-gray-300 max-w-xl">
-                Un festival de cinéma dans le Berry, qui récompense des courts métrages engagés, s'inspirant de la modernité des idées de George Sand.
+              <p className="text-base md:text-lg font-sans font-light leading-relaxed text-white/80"
+                style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}>
+                Un festival de cinéma dans le Berry récompensant des courts métrages engagés, s'inspirant de la modernité des idées de George Sand.
               </p>
             </motion.div>
 
@@ -73,15 +88,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="mt-8 flex flex-col sm:flex-row items-start gap-4"
+              className="mt-8 flex flex-col sm:flex-row items-start gap-3"
             >
-              <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-sm border border-white/20 px-4 py-2">
+              <div className="flex items-center gap-2 border border-primary-foreground/50 px-4 py-2">
                 <Calendar className="text-primary-foreground w-4 h-4 shrink-0" />
-                <span className="font-display font-semibold tracking-wider text-sm text-white">10 & 11 OCTOBRE 2026</span>
+                <span className="font-display font-bold tracking-wider text-sm text-white">10 & 11 OCT. 2026</span>
               </div>
-              <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-sm border border-white/20 px-4 py-2">
-                <MapPin className="text-primary-foreground w-4 h-4 shrink-0" />
-                <span className="font-display font-semibold tracking-wider text-sm text-white">LA CHÂTRE, BERRY</span>
+              <div className="flex items-center gap-2 border border-white/30 px-4 py-2">
+                <MapPin className="text-white/70 w-4 h-4 shrink-0" />
+                <span className="font-display font-semibold tracking-wider text-sm text-white/80">La Châtre, Berry</span>
               </div>
             </motion.div>
 
