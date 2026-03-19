@@ -6,9 +6,8 @@ export function Footer() {
           
           <div className="flex justify-center md:justify-start">
             <img 
-              src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/logo-festival-george-sand.png" 
+              src="/logo-jaune.png"
               alt="Festival George Sand" 
-              style={{ filter: "brightness(0) invert(1) sepia(1) saturate(300%) hue-rotate(5deg)" }}
               className="h-20 opacity-90 hover:opacity-100 transition-opacity"
             />
           </div>

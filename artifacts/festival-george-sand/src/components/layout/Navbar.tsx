@@ -17,7 +17,6 @@ export function Navbar() {
 
   const navLinks = [
     { name: "À propos", href: "#apropos" },
-    { name: "Proposer un film", href: "#proposer" },
     { name: "La Résidence", href: "#residence" },
     { name: "Les Prix", href: "#prix" },
     { name: "Contact", href: "#contact" },
@@ -36,9 +35,8 @@ export function Navbar() {
         <div className="flex justify-between items-center">
           <a href="#" className="flex-shrink-0 flex items-center group">
             <img 
-              src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/logo-festival-george-sand.png" 
+              src={isScrolled ? "/logo-violet.png" : "/logo-jaune.png"}
               alt="Festival George Sand Logo" 
-              style={!isScrolled ? { filter: "brightness(0) invert(1) sepia(1) saturate(300%) hue-rotate(5deg)" } : {}}
               className={cn(
                 "w-auto transition-all duration-300 group-hover:scale-105",
                 isScrolled ? "h-12" : "h-16"
