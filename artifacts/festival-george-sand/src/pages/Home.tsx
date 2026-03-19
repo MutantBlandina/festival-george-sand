@@ -27,7 +27,7 @@ export default function Home() {
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative h-screen flex items-end overflow-hidden bg-black">
+      <section className="relative overflow-hidden bg-black" style={{ height: "100svh", minHeight: "600px" }}>
         {/* Background image — face positioned to the right */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -39,13 +39,13 @@ export default function Home() {
           {/* Subtle overall darkening — no heavy left gradient */}
           <div className="absolute inset-0 bg-black/25" />
           {/* Strong bottom-only fade for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" style={{ backgroundSize: "100% 70%", backgroundRepeat: "no-repeat", backgroundPosition: "bottom" }} />
+          <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-black via-black/50 to-transparent" />
           <div className="grain-overlay" />
         </div>
         
         {/* Content pinned to bottom-left */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="max-w-2xl">
+        <div className="absolute left-0 right-0 z-10 px-4 sm:px-6 lg:px-8" style={{ bottom: "clamp(2rem, 5vh, 4rem)" }}>
+          <div className="max-w-2xl mx-auto lg:mx-0">
             {/* Decorative pre-title line */}
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
@@ -66,9 +66,9 @@ export default function Home() {
             >
               <h1 className="font-display font-bold uppercase tracking-tight leading-[0.92]"
                 style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
-                <span className="block text-5xl md:text-6xl lg:text-7xl text-white">Festival</span>
-                <span className="block text-5xl md:text-6xl lg:text-7xl text-primary-foreground">George Sand</span>
-                <span className="block text-2xl md:text-3xl lg:text-4xl text-white font-medium tracking-[0.15em] mt-2">du court métrage</span>
+                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white">Festival</span>
+                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-primary-foreground">George Sand</span>
+                <span className="block text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-white font-medium tracking-[0.15em] mt-2">du court métrage</span>
               </h1>
             </motion.div>
             
@@ -78,33 +78,33 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mt-6 max-w-lg"
             >
-              <p className="text-base md:text-lg font-sans font-light leading-relaxed text-white/80"
-                style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}>
+              <p className="text-base md:text-lg font-sans font-light leading-relaxed text-white"
+                style={{ textShadow: "0 1px 12px rgba(0,0,0,0.9)" }}>
                 Un festival de cinéma dans le Berry récompensant des courts métrages engagés, s'inspirant de la modernité des idées de George Sand.
               </p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              className="mt-8 flex flex-col sm:flex-row items-start gap-3"
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="mt-6 flex flex-wrap items-start gap-3"
             >
-              <div className="flex items-center gap-2 border border-primary-foreground/50 px-4 py-2">
+              <div className="flex items-center gap-2 border border-primary-foreground/60 bg-black/30 backdrop-blur-sm px-4 py-2">
                 <Calendar className="text-primary-foreground w-4 h-4 shrink-0" />
                 <span className="font-display font-bold tracking-wider text-sm text-white">10 & 11 OCT. 2026</span>
               </div>
-              <div className="flex items-center gap-2 border border-white/30 px-4 py-2">
-                <MapPin className="text-white/70 w-4 h-4 shrink-0" />
-                <span className="font-display font-semibold tracking-wider text-sm text-white/80">La Châtre, Berry</span>
+              <div className="flex items-center gap-2 border border-white/40 bg-black/30 backdrop-blur-sm px-4 py-2">
+                <MapPin className="text-white w-4 h-4 shrink-0" />
+                <span className="font-display font-semibold tracking-wider text-sm text-white">La Châtre, Berry</span>
               </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2 }}
-              className="mt-10"
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="mt-6"
             >
               <Button size="lg" variant="primary" asChild className="group">
                 <a href="#apropos">

@@ -45,7 +45,7 @@ export function Navbar() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -63,9 +63,9 @@ export function Navbar() {
             </Button>
           </nav>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile/Tablet Menu Toggle */}
           <button
-            className="md:hidden text-foreground p-2"
+            className="lg:hidden text-foreground p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
@@ -77,9 +77,9 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile/Tablet Nav */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-background border-b-2 border-border shadow-lg">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-background border-b-2 border-border shadow-lg">
           <div className="px-4 pt-2 pb-6 space-y-4 flex flex-col">
             {navLinks.map((link) => (
               <a
