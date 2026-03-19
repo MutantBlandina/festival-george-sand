@@ -115,6 +115,21 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
+
+        {/* Partner logos — bottom right, reduced opacity */}
+        <div className="absolute bottom-0 right-0 z-10 px-4 sm:px-6 lg:px-8 pb-6 flex items-end gap-8">
+          <img
+            src="/logo-lachatre.png"
+            alt="La Châtre"
+            className="h-8 sm:h-10 object-contain opacity-45"
+          />
+          <img
+            src="/logo-annee-gs.png"
+            alt="Année George Sand 2026"
+            className="h-14 sm:h-16 object-contain opacity-45"
+            style={{ mixBlendMode: "screen" }}
+          />
+        </div>
       </section>
 
       {/* 2. À PROPOS SECTION */}
