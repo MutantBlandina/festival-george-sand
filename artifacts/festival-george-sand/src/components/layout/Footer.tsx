@@ -8,7 +8,8 @@ export function Footer() {
             <img 
               src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/logo-festival-george-sand.png" 
               alt="Festival George Sand" 
-              className="h-20 invert opacity-80 hover:opacity-100 transition-opacity"
+              style={{ filter: "brightness(0) invert(1) sepia(1) saturate(300%) hue-rotate(5deg)" }}
+              className="h-20 opacity-90 hover:opacity-100 transition-opacity"
             />
           </div>
           

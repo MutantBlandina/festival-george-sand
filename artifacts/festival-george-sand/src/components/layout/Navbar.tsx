@@ -38,9 +38,10 @@ export function Navbar() {
             <img 
               src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/logo-festival-george-sand.png" 
               alt="Festival George Sand Logo" 
+              style={!isScrolled ? { filter: "brightness(0) invert(1) sepia(1) saturate(300%) hue-rotate(5deg)" } : {}}
               className={cn(
                 "w-auto transition-all duration-300 group-hover:scale-105",
-                isScrolled ? "h-12" : "h-16 invert"
+                isScrolled ? "h-12" : "h-16"
               )}
             />
           </a>
