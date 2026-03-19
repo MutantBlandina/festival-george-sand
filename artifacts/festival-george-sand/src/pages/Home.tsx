@@ -164,10 +164,9 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="bg-foreground text-background px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+            className="bg-foreground text-background px-10 py-6 flex items-center justify-center"
           >
-            <p className="font-serif text-lg italic opacity-80">« Chaque jour je me persuade davantage que la vie vaut la peine d'être vécue. »</p>
-            <span className="font-display font-bold uppercase tracking-widest text-sm shrink-0">150ème anniversaire — George Sand</span>
+            <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
           </motion.div>
 
         </div>
