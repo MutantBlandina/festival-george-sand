@@ -27,70 +27,78 @@ export default function Home() {
       <Navbar />
 
       {/* 1. HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative h-screen flex items-end overflow-hidden bg-black">
+        {/* Background image — face positioned to the right */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/hero-bg.jpg" 
             alt="Hero Background" 
-            className="w-full h-full object-cover object-center opacity-70"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: "70% center" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
+          {/* Left-to-right gradient so text is readable but right side (face) stays visible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+          {/* Bottom fade for smooth transition to next section */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           <div className="grain-overlay" />
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white mt-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold uppercase tracking-tight leading-[0.9]">
-              Festival <br className="hidden md:block" />
-              <span className="text-primary-foreground">George Sand</span> <br />
-              <span className="text-3xl md:text-5xl lg:text-6xl tracking-widest font-medium">du court métrage</span>
-            </h1>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8 max-w-3xl mx-auto"
-          >
-            <p className="text-xl md:text-2xl font-sans font-light leading-relaxed text-gray-200">
-              Un festival de cinéma dans le Berry, qui récompense des courts métrages engagés, s'inspirant de la modernité des idées de George Sand.
-            </p>
-          </motion.div>
+        {/* Content pinned to bottom-left */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="max-w-xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight leading-[1] text-white">
+                Festival <br />
+                <span className="text-primary-foreground">George Sand</span> <br />
+                <span className="text-2xl md:text-3xl tracking-widest font-medium">du court métrage</span>
+              </h1>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-6"
+            >
+              <p className="text-lg md:text-xl font-sans font-light leading-relaxed text-gray-300 max-w-xl">
+                Un festival de cinéma dans le Berry, qui récompense des courts métrages engagés, s'inspirant de la modernité des idées de George Sand.
+              </p>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
-          >
-            <div className="flex items-center space-x-3 bg-black/50 backdrop-blur-sm border border-white/20 px-6 py-3">
-              <Calendar className="text-primary-foreground w-6 h-6" />
-              <span className="font-display font-semibold tracking-wider">10 & 11 OCTOBRE 2026</span>
-            </div>
-            <div className="flex items-center space-x-3 bg-black/50 backdrop-blur-sm border border-white/20 px-6 py-3">
-              <MapPin className="text-primary-foreground w-6 h-6" />
-              <span className="font-display font-semibold tracking-wider">LA CHÂTRE, BERRY</span>
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="mt-8 flex flex-col sm:flex-row items-start gap-4"
+            >
+              <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-sm border border-white/20 px-4 py-2">
+                <Calendar className="text-primary-foreground w-4 h-4 shrink-0" />
+                <span className="font-display font-semibold tracking-wider text-sm text-white">10 & 11 OCTOBRE 2026</span>
+              </div>
+              <div className="flex items-center space-x-2 bg-black/60 backdrop-blur-sm border border-white/20 px-4 py-2">
+                <MapPin className="text-primary-foreground w-4 h-4 shrink-0" />
+                <span className="font-display font-semibold tracking-wider text-sm text-white">LA CHÂTRE, BERRY</span>
+              </div>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            className="mt-16"
-          >
-            <Button size="lg" variant="primary" asChild className="group">
-              <a href="#apropos">
-                Découvrir le festival
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="mt-10"
+            >
+              <Button size="lg" variant="primary" asChild className="group">
+                <a href="#apropos">
+                  Découvrir le festival
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </section>
 
