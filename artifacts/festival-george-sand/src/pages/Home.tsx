@@ -53,7 +53,7 @@ export default function Home() {
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight leading-[1] text-white">
                 Festival <br />
-                <span className="text-primary-foreground">George Sand</span> <br />
+                George Sand <br />
                 <span className="text-2xl md:text-3xl tracking-widest font-medium">du court métrage</span>
               </h1>
             </motion.div>
@@ -104,43 +104,72 @@ export default function Home() {
 
       {/* 2. À PROPOS SECTION */}
       <section id="apropos" className="py-24 bg-background relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+            className="text-center mb-16"
           >
-            <div>
-              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-8">
-                À <span className="text-primary">Propos</span>
-              </h2>
-              <p className="text-2xl font-serif font-semibold leading-snug mb-6">
-                Un nouveau festival de cinéma récompensant les films engagés de maximum 15 minutes.
-              </p>
-              <div className="space-y-6 text-lg text-muted-foreground">
-                <p>
-                  Ce prix du court métrage est ouvert à toutes et à tous, <strong>professionnels ou amateurs</strong>, partout en France. 
-                  La cérémonie aura lieu le <strong>10 & 11 octobre</strong> prochain à <strong>La Châtre en Berry</strong> à quelques kilomètres de Nohant, la maison de George Sand.
-                </p>
-                <p>
-                  Une <strong>résidence de production audiovisuelle</strong> à destination des amateurs aura lieu le week-end du 8 mai.
-                </p>
-                <p className="pt-4 border-t-2 border-border/10 font-bold text-foreground">
-                  Le Festival s'inscrit dans le cadre du 150ème anniversaire de la mort de George Sand.
-                </p>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square bg-primary/5 absolute -top-4 -right-4 w-full h-full -z-10" />
-              <img 
-                src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/prix.jpg" 
-                alt="Ambiance cinéma" 
-                className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl border-2 border-border"
-              />
-            </div>
+            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-6 text-foreground">
+              À Propos
+            </h2>
+            <p className="text-2xl md:text-3xl font-serif font-light leading-snug text-foreground max-w-3xl mx-auto">
+              Un festival de cinéma récompensant les films engagés de <strong>maximum 15 minutes</strong>, ouvert à toutes et à tous, partout en France.
+            </p>
           </motion.div>
+
+          {/* Key highlights */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-0 border-2 border-foreground mb-16"
+          >
+            {[
+              { label: "Formats acceptés", value: "Fiction · Documentaire · Animation" },
+              { label: "Durée maximale", value: "15 minutes" },
+              { label: "Ouvert à", value: "Professionnels & Amateurs" },
+            ].map((item, i) => (
+              <div key={i} className={cn("p-8 text-center", i < 2 ? "border-b md:border-b-0 md:border-r-2 border-foreground" : "")}>
+                <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-muted-foreground mb-3">{item.label}</div>
+                <div className="text-lg md:text-xl font-serif font-semibold text-foreground">{item.value}</div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Body text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 text-lg text-muted-foreground"
+          >
+            <p>
+              La cérémonie aura lieu les <strong className="text-foreground">10 & 11 octobre 2026</strong> à <strong className="text-foreground">La Châtre en Berry</strong>, à quelques kilomètres de Nohant — la maison de George Sand. Une <strong className="text-foreground">résidence de production audiovisuelle</strong> à destination des amateurs se tiendra également le week-end du 8 mai.
+            </p>
+            <p>
+              Les films présentés doivent être liés aux idées ou à la vie de George Sand — émancipation, écologie, engagement politique, proximité du territoire, légendes — et raconter notre monde sous le prisme de sa modernité.
+            </p>
+          </motion.div>
+
+          {/* Anniversary banner */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="bg-foreground text-background px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          >
+            <p className="font-serif text-lg italic opacity-80">« Chaque jour je me persuade davantage que la vie vaut la peine d'être vécue. »</p>
+            <span className="font-display font-bold uppercase tracking-widest text-sm shrink-0">150ème anniversaire — George Sand</span>
+          </motion.div>
+
         </div>
       </section>
 
@@ -298,7 +327,7 @@ export default function Home() {
       <section id="prix" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6">Sélection & <span className="text-primary">Prix</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 text-foreground">Sélection & Prix</h2>
             <p className="text-xl font-serif text-muted-foreground">
               <strong>20 courts-métrages</strong> seront sélectionnés pour participer à la compétition. 
               Annonce fin septembre 2026.
@@ -415,7 +444,7 @@ export default function Home() {
       <section id="contact" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6">Contact & <span className="text-primary">Équipe</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 text-foreground">Contact & Équipe</h2>
             <p className="text-xl font-serif text-muted-foreground max-w-3xl mx-auto">
               Les responsables du festival sont <strong>Pauline Michel</strong> et <strong>Thibaud Deschamps</strong>, deux jeunes professionnels attachés au Berry, produisant des films au Pays de George Sand.
             </p>
