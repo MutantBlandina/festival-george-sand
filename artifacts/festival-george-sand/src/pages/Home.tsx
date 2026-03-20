@@ -184,9 +184,9 @@ export default function Home() {
             <div className="bg-foreground text-background px-10 py-6 flex items-center justify-center">
               <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-10 pt-8">
-              <img src="/logo-lachatre-dark.jpg" alt="La Châtre" className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity" />
-              <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+            <div className="flex flex-wrap items-center justify-center gap-12 pt-8">
+              <img src="/logo-lachatre-png.png" alt="La Châtre" className="h-16 object-contain opacity-80 hover:opacity-100 transition-opacity" />
+              <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-20 object-contain opacity-80 hover:opacity-100 transition-opacity" />
             </div>
           </motion.div>
 
@@ -194,14 +194,13 @@ export default function Home() {
       </section>
 
       {/* 3. CALENDRIER SECTION */}
-      <section className="relative overflow-hidden bg-black text-white" id="calendrier">
+      <section className="relative overflow-hidden text-white" id="calendrier">
         <div className="absolute inset-0 z-0">
           <img src="/hero-bg.jpg" alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-black/80" />
+          <div className="absolute inset-0 bg-primary/90" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          {/* Section header */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -213,56 +212,40 @@ export default function Home() {
             <p className="font-serif text-white/60 max-w-xl">Les grandes étapes de l'édition 2026 du Festival George Sand du court-métrage.</p>
           </motion.div>
 
-          {/* Cards grid — 5 regular + 1 highlight */}
-          {(() => {
-            const events = [
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+            {[
               { num: "01", date: "15 Fév. 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
               { num: "02", date: "5 Avr. 2026", text: "Fin de la période de candidature pour la résidence" },
               { num: "03", date: "8–10 Mai 2026", text: "Résidence de production audiovisuelle à La Châtre" },
               { num: "04", date: "8 Juin 2026", text: "Début de l'appel à films" },
               { num: "05", date: "6 Sep. 2026", text: "Clôture de l'appel à films" },
-            ]
-            const final = { num: "06", date: "10 & 11 Oct. 2026", text: "Cérémonie du Festival George Sand du court-métrage à La Châtre" }
-            return (
-              <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
-                  {events.map((item, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 32 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.5, delay: index * 0.07 }}
-                      className="bg-black/60 backdrop-blur-sm p-8 flex flex-col gap-4 group hover:bg-white/5 transition-colors duration-300"
-                    >
-                      <span className="text-6xl font-display font-black text-white/8 leading-none select-none">{item.num}</span>
-                      <div>
-                        <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-primary-foreground mb-2">{item.date}</div>
-                        <p className="font-serif text-base text-white/75 leading-snug group-hover:text-white transition-colors duration-300">{item.text}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                  {/* spacer to fill the 6th cell of the 3-col grid before the full-width final */}
-                  <div className="hidden lg:block bg-black/40" />
+              { num: "06", date: "10 & 11 Oct. 2026", text: "Cérémonie du Festival George Sand du court-métrage à La Châtre", highlight: true },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: index * 0.07 }}
+                className={cn(
+                  "p-8 flex flex-col gap-4 group transition-colors duration-300",
+                  item.highlight
+                    ? "bg-primary-foreground/20 hover:bg-primary-foreground/30"
+                    : "bg-black/20 hover:bg-black/30"
+                )}
+              >
+                <span className="text-6xl font-display font-black text-white/10 leading-none select-none">{item.num}</span>
+                <div className="flex-1">
+                  <div className={cn(
+                    "text-xs font-display font-bold uppercase tracking-[0.2em] mb-2",
+                    item.highlight ? "text-primary-foreground" : "text-white/50"
+                  )}>{item.date}</div>
+                  <p className="font-serif text-base text-white/80 leading-snug group-hover:text-white transition-colors duration-300">{item.text}</p>
                 </div>
-                {/* Final highlight card — full width */}
-                <motion.div
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.6, delay: 0.35 }}
-                  className="mt-px bg-primary-foreground text-foreground p-10 flex flex-col sm:flex-row sm:items-center gap-6"
-                >
-                  <span className="text-8xl font-display font-black text-foreground/10 leading-none shrink-0 select-none">{final.num}</span>
-                  <div className="flex-1">
-                    <div className="text-xs font-display font-black uppercase tracking-[0.25em] text-foreground/60 mb-2">{final.date}</div>
-                    <p className="font-serif text-2xl font-semibold text-foreground leading-snug">{final.text}</p>
-                  </div>
-                  <Trophy className="w-10 h-10 text-foreground/30 shrink-0" />
-                </motion.div>
-              </>
-            )
-          })()}
+                {item.highlight && <Trophy className="w-5 h-5 text-primary-foreground/60" />}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -552,8 +535,7 @@ export default function Home() {
             <div className="h-[2px] w-12 bg-primary mx-auto mb-6" />
             <h2 className="text-3xl font-display font-bold uppercase mb-4 text-foreground">Nos Partenaires</h2>
             <p className="font-serif text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour.<br/>
-              Porté par l'association <strong className="text-foreground">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
+              Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour.
             </p>
           </motion.div>
 
@@ -569,9 +551,13 @@ export default function Home() {
               alt="Culture en Vallée Noire"
               className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
             />
-            <img src="/logo-lachatre-dark.jpg" alt="La Châtre" className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/logo-lachatre-png.png" alt="La Châtre" className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
           </motion.div>
+
+          <p className="font-serif text-muted-foreground mb-6">
+            Porté par l'association <strong className="text-foreground">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
+          </p>
 
           <a href="mailto:cultureenvalleenoire@gmail.com" className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm">
             <Mail className="w-4 h-4" />
