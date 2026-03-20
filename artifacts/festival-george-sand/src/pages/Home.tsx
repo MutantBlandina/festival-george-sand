@@ -212,7 +212,7 @@ export default function Home() {
             <p className="font-serif text-white/60 max-w-xl">Les grandes étapes de l'édition 2026 du Festival George Sand du court-métrage.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-primary-foreground/20">
             {[
               { num: "01", date: "15 Fév. 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
               { num: "02", date: "5 Avr. 2026", text: "Fin de la période de candidature pour la résidence" },
@@ -228,21 +228,20 @@ export default function Home() {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: index * 0.07 }}
                 className={cn(
-                  "p-8 flex flex-col gap-4 group transition-colors duration-300",
+                  "p-8 flex flex-col gap-5 group transition-colors duration-300 border-l-2",
                   item.highlight
-                    ? "bg-primary-foreground/20 hover:bg-primary-foreground/30"
-                    : "bg-black/20 hover:bg-black/30"
+                    ? "bg-primary-foreground/15 border-primary-foreground hover:bg-primary-foreground/25"
+                    : "bg-black/30 border-primary-foreground/30 hover:bg-black/40 hover:border-primary-foreground"
                 )}
               >
-                <span className="text-6xl font-display font-black text-white/10 leading-none select-none">{item.num}</span>
+                <span className="text-5xl font-display font-black text-primary-foreground/25 leading-none select-none">{item.num}</span>
                 <div className="flex-1">
-                  <div className={cn(
-                    "text-xs font-display font-bold uppercase tracking-[0.2em] mb-2",
-                    item.highlight ? "text-primary-foreground" : "text-white/50"
-                  )}>{item.date}</div>
-                  <p className="font-serif text-base text-white/80 leading-snug group-hover:text-white transition-colors duration-300">{item.text}</p>
+                  <div className="text-xs font-display font-bold uppercase tracking-[0.2em] mb-3 text-primary-foreground">
+                    {item.date}
+                  </div>
+                  <p className="font-serif text-base text-white/90 leading-snug group-hover:text-white transition-colors duration-300">{item.text}</p>
                 </div>
-                {item.highlight && <Trophy className="w-5 h-5 text-primary-foreground/60" />}
+                {item.highlight && <Trophy className="w-5 h-5 text-primary-foreground" />}
               </motion.div>
             ))}
           </div>
