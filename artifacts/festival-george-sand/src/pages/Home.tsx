@@ -185,8 +185,8 @@ export default function Home() {
               <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-10 pt-8">
-              <img src="/logo-lachatre.png" alt="La Châtre" className="h-8 object-contain opacity-60 hover:opacity-100 transition-opacity" />
-              <img src="/logo-annee-gs.png" alt="Année George Sand 2026" className="h-14 object-contain opacity-60 hover:opacity-100 transition-opacity" style={{ mixBlendMode: "multiply" }} />
+              <img src="/logo-lachatre-dark.jpg" alt="La Châtre" className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+              <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             </div>
           </motion.div>
 
@@ -194,86 +194,75 @@ export default function Home() {
       </section>
 
       {/* 3. CALENDRIER SECTION */}
-      <section className="relative overflow-hidden bg-black text-white">
-        {/* Background image */}
+      <section className="relative overflow-hidden bg-black text-white" id="calendrier">
         <div className="absolute inset-0 z-0">
           <img src="/hero-bg.jpg" alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-black/75" />
+          <div className="absolute inset-0 bg-black/80" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-4 text-white">Calendrier</h2>
+            <p className="font-serif text-white/60 max-w-xl">Les grandes étapes de l'édition 2026 du Festival George Sand du court-métrage.</p>
+          </motion.div>
 
-            {/* Left: title + George Sand image */}
-            <div className="lg:col-span-4 lg:sticky lg:top-24">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
-                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-4 text-white">Calendrier</h2>
-                <p className="font-serif text-white/70 mb-10">Les grandes dates de l'édition 2026 du Festival George Sand du court-métrage.</p>
-                <div className="relative overflow-hidden">
-                  <img
-                    src="/george-sand-violet.png"
-                    alt="George Sand"
-                    className="w-full max-w-xs object-contain"
-                    style={{ mixBlendMode: "screen" }}
-                  />
+          {/* Cards grid — 5 regular + 1 highlight */}
+          {(() => {
+            const events = [
+              { num: "01", date: "15 Fév. 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
+              { num: "02", date: "5 Avr. 2026", text: "Fin de la période de candidature pour la résidence" },
+              { num: "03", date: "8–10 Mai 2026", text: "Résidence de production audiovisuelle à La Châtre" },
+              { num: "04", date: "8 Juin 2026", text: "Début de l'appel à films" },
+              { num: "05", date: "6 Sep. 2026", text: "Clôture de l'appel à films" },
+            ]
+            const final = { num: "06", date: "10 & 11 Oct. 2026", text: "Cérémonie du Festival George Sand du court-métrage à La Châtre" }
+            return (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+                  {events.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 32 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.5, delay: index * 0.07 }}
+                      className="bg-black/60 backdrop-blur-sm p-8 flex flex-col gap-4 group hover:bg-white/5 transition-colors duration-300"
+                    >
+                      <span className="text-6xl font-display font-black text-white/8 leading-none select-none">{item.num}</span>
+                      <div>
+                        <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-primary-foreground mb-2">{item.date}</div>
+                        <p className="font-serif text-base text-white/75 leading-snug group-hover:text-white transition-colors duration-300">{item.text}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                  {/* spacer to fill the 6th cell of the 3-col grid before the full-width final */}
+                  <div className="hidden lg:block bg-black/40" />
                 </div>
-              </motion.div>
-            </div>
-
-            {/* Right: timeline list */}
-            <div className="lg:col-span-8">
-              <div className="space-y-0">
-                {[
-                  { date: "15 Fév. 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
-                  { date: "5 Avr. 2026", text: "Fin de la période de candidature pour la résidence" },
-                  { date: "8–10 Mai 2026", text: "Résidence de production audiovisuelle à La Châtre" },
-                  { date: "8 Juin 2026", text: "Début de l'appel à films" },
-                  { date: "6 Sep. 2026", text: "Clôture de l'appel à films" },
-                  { date: "10 & 11 Oct. 2026", text: "Cérémonie du Festival George Sand du court-métrage à La Châtre", highlight: true },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{ delay: index * 0.08 }}
-                    className={cn(
-                      "flex items-start gap-6 py-6 border-b border-white/10 group",
-                      item.highlight && "border-primary-foreground/30"
-                    )}
-                  >
-                    <div className={cn(
-                      "w-2 h-2 mt-2.5 rounded-full shrink-0",
-                      item.highlight ? "bg-primary-foreground ring-4 ring-primary-foreground/30" : "bg-white/40"
-                    )} />
-                    <div className="flex-1">
-                      <div className={cn(
-                        "text-xs font-display font-bold uppercase tracking-[0.2em] mb-1",
-                        item.highlight ? "text-primary-foreground" : "text-white/50"
-                      )}>
-                        {item.date}
-                      </div>
-                      <div className={cn(
-                        "font-serif text-lg leading-snug",
-                        item.highlight ? "text-white font-semibold" : "text-white/80"
-                      )}>
-                        {item.text}
-                      </div>
-                    </div>
-                    {item.highlight && (
-                      <Trophy className="w-5 h-5 text-primary-foreground shrink-0 mt-1" />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-          </div>
+                {/* Final highlight card — full width */}
+                <motion.div
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, delay: 0.35 }}
+                  className="mt-px bg-primary-foreground text-foreground p-10 flex flex-col sm:flex-row sm:items-center gap-6"
+                >
+                  <span className="text-8xl font-display font-black text-foreground/10 leading-none shrink-0 select-none">{final.num}</span>
+                  <div className="flex-1">
+                    <div className="text-xs font-display font-black uppercase tracking-[0.25em] text-foreground/60 mb-2">{final.date}</div>
+                    <p className="font-serif text-2xl font-semibold text-foreground leading-snug">{final.text}</p>
+                  </div>
+                  <Trophy className="w-10 h-10 text-foreground/30 shrink-0" />
+                </motion.div>
+              </>
+            )
+          })()}
         </div>
       </section>
 
@@ -549,26 +538,45 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="border-t border-background/10 pt-16 text-center">
-            <h3 className="text-2xl font-display font-bold uppercase mb-6 text-background">Nos Partenaires</h3>
-            <p className="font-serif text-lg mb-10 text-background/60">
+        </div>
+      </section>
+
+      {/* 8. PARTENAIRES — fond clair */}
+      <section className="py-20 bg-background border-t border-border">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="h-[2px] w-12 bg-primary mx-auto mb-6" />
+            <h2 className="text-3xl font-display font-bold uppercase mb-4 text-foreground">Nos Partenaires</h2>
+            <p className="font-serif text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
               Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour.<br/>
-              Porté par l'association <strong className="text-background">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
+              Porté par l'association <strong className="text-foreground">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
             </p>
-            <div className="flex justify-center items-center gap-10 flex-wrap mb-10">
-              <img 
-                src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/cvn_logo-06.png" 
-                alt="Culture en Vallée Noire" 
-                className="h-16 object-contain opacity-60 hover:opacity-100 transition-opacity invert"
-              />
-              <img src="/logo-lachatre.png" alt="La Châtre" className="h-8 object-contain opacity-60 hover:opacity-100 transition-opacity" />
-              <img src="/logo-annee-gs.png" alt="Année George Sand 2026" className="h-14 object-contain opacity-60 hover:opacity-100 transition-opacity" style={{ mixBlendMode: "screen" }} />
-            </div>
-            <a href="mailto:cultureenvalleenoire@gmail.com" className="inline-flex items-center gap-2 text-primary-foreground font-bold hover:underline">
-              <Mail className="w-4 h-4" />
-              cultureenvalleenoire@gmail.com
-            </a>
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="flex justify-center items-center gap-12 flex-wrap mb-10"
+          >
+            <img
+              src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/cvn_logo-06.png"
+              alt="Culture en Vallée Noire"
+              className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
+            />
+            <img src="/logo-lachatre-dark.jpg" alt="La Châtre" className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+            <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+          </motion.div>
+
+          <a href="mailto:cultureenvalleenoire@gmail.com" className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm">
+            <Mail className="w-4 h-4" />
+            cultureenvalleenoire@gmail.com
+          </a>
         </div>
       </section>
 
