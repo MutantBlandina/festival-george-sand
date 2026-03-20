@@ -44,7 +44,7 @@ export default function Home() {
         </div>
         
         {/* Content pinned to bottom-left */}
-        <div className="absolute left-0 right-0 z-10 px-4 sm:px-6 lg:px-8" style={{ bottom: "clamp(2rem, 5vh, 4rem)" }}>
+        <div className="absolute left-0 right-0 z-10 px-6 sm:px-10 lg:px-16 xl:px-24" style={{ bottom: "clamp(2rem, 5vh, 4rem)" }}>
           <div className="max-w-2xl mx-auto lg:mx-0">
             {/* Decorative pre-title line */}
             <motion.div
@@ -116,20 +116,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Partner logos — bottom right, reduced opacity */}
-        <div className="absolute bottom-0 right-0 z-10 px-4 sm:px-6 lg:px-8 pb-6 flex items-end gap-8">
-          <img
-            src="/logo-lachatre.png"
-            alt="La Châtre"
-            className="h-8 sm:h-10 object-contain opacity-45"
-          />
-          <img
-            src="/logo-annee-gs.png"
-            alt="Année George Sand 2026"
-            className="h-14 sm:h-16 object-contain opacity-45"
-            style={{ mixBlendMode: "screen" }}
-          />
-        </div>
       </section>
 
       {/* 2. À PROPOS SECTION */}
@@ -188,80 +174,105 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Anniversary banner */}
+          {/* Anniversary banner + partner logos */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="bg-foreground text-background px-10 py-6 flex items-center justify-center"
           >
-            <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
+            <div className="bg-foreground text-background px-10 py-6 flex items-center justify-center">
+              <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-10 pt-8">
+              <img src="/logo-lachatre.png" alt="La Châtre" className="h-8 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/logo-annee-gs.png" alt="Année George Sand 2026" className="h-14 object-contain opacity-60 hover:opacity-100 transition-opacity" style={{ mixBlendMode: "multiply" }} />
+            </div>
           </motion.div>
 
         </div>
       </section>
 
       {/* 3. CALENDRIER SECTION */}
-      <section className="py-24 bg-secondary border-y-2 border-border relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 transform origin-top" />
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-4">Calendrier</h2>
-            <div className="w-24 h-2 bg-primary mx-auto" />
-          </motion.div>
+      <section className="relative overflow-hidden bg-black text-white">
+        {/* Background image */}
+        <div className="absolute inset-0 z-0">
+          <img src="/hero-bg.jpg" alt="" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-black/75" />
+        </div>
 
-          <div className="relative border-l-4 border-primary ml-4 md:ml-0 md:border-none">
-            {/* Desktop central line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-primary -translate-x-1/2" />
-            
-            {[
-              { date: "15 FÉVRIER 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle", icon: <Film /> },
-              { date: "5 AVRIL 2026", text: "Fin de la période de candidature pour la résidence", icon: <Calendar /> },
-              { date: "Du 8 au 10 MAI 2026", text: "Résidence de production audiovisuelle à La Châtre", icon: <Video /> },
-              { date: "8 JUIN 2026", text: "Début de l'appel à films", icon: <Play /> },
-              { date: "6 SEPTEMBRE 2026", text: "Clôture de l'appel à films", icon: <Clock /> },
-              { date: "10 & 11 OCT 2026", text: "Cérémonie du festival George Sand du court métrage à La Châtre", icon: <Trophy />, highlight: true },
-            ].map((item, index) => {
-              const isEven = index % 2 === 0
-              return (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: index * 0.1 }}
-                  className={cn(
-                    "relative mb-12 pl-8 md:pl-0 md:w-1/2",
-                    isEven ? "md:pr-12 md:ml-0 md:text-right" : "md:pl-12 md:ml-auto"
-                  )}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-[-10px] md:left-auto md:right-[-26px] top-1 w-6 h-6 bg-accent border-4 border-primary rounded-full z-10"
-                       style={!isEven ? { left: '-26px' } : {}}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+            {/* Left: title + George Sand image */}
+            <div className="lg:col-span-4 lg:sticky lg:top-24">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+                <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-4 text-white">Calendrier</h2>
+                <p className="font-serif text-white/70 mb-10">Les grandes dates de l'édition 2026 du Festival George Sand du court-métrage.</p>
+                <div className="relative overflow-hidden">
+                  <img
+                    src="/george-sand-violet.png"
+                    alt="George Sand"
+                    className="w-full max-w-xs object-contain"
+                    style={{ mixBlendMode: "screen" }}
                   />
-                  
-                  <div className={cn(
-                    "p-6 border-2 shadow-lg transition-transform hover:-translate-y-1",
-                    item.highlight ? "bg-primary text-primary-foreground border-primary" : "bg-background border-border text-foreground"
-                  )}>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right: timeline list */}
+            <div className="lg:col-span-8">
+              <div className="space-y-0">
+                {[
+                  { date: "15 Fév. 2026", text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
+                  { date: "5 Avr. 2026", text: "Fin de la période de candidature pour la résidence" },
+                  { date: "8–10 Mai 2026", text: "Résidence de production audiovisuelle à La Châtre" },
+                  { date: "8 Juin 2026", text: "Début de l'appel à films" },
+                  { date: "6 Sep. 2026", text: "Clôture de l'appel à films" },
+                  { date: "10 & 11 Oct. 2026", text: "Cérémonie du Festival George Sand du court-métrage à La Châtre", highlight: true },
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ delay: index * 0.08 }}
+                    className={cn(
+                      "flex items-start gap-6 py-6 border-b border-white/10 group",
+                      item.highlight && "border-primary-foreground/30"
+                    )}
+                  >
                     <div className={cn(
-                      "text-sm font-display font-bold uppercase tracking-wider mb-2",
-                      item.highlight ? "text-primary-foreground" : "text-primary"
-                    )}>
-                      {item.date}
+                      "w-2 h-2 mt-2.5 rounded-full shrink-0",
+                      item.highlight ? "bg-primary-foreground ring-4 ring-primary-foreground/30" : "bg-white/40"
+                    )} />
+                    <div className="flex-1">
+                      <div className={cn(
+                        "text-xs font-display font-bold uppercase tracking-[0.2em] mb-1",
+                        item.highlight ? "text-primary-foreground" : "text-white/50"
+                      )}>
+                        {item.date}
+                      </div>
+                      <div className={cn(
+                        "font-serif text-lg leading-snug",
+                        item.highlight ? "text-white font-semibold" : "text-white/80"
+                      )}>
+                        {item.text}
+                      </div>
                     </div>
-                    <div className="font-serif text-lg font-medium">{item.text}</div>
-                  </div>
-                </motion.div>
-              )
-            })}
+                    {item.highlight && (
+                      <Trophy className="w-5 h-5 text-primary-foreground shrink-0 mt-1" />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -390,9 +401,10 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="bg-secondary p-8 md:p-12 border-2 border-border text-center">
-            <h3 className="text-2xl font-display font-bold uppercase mb-6">Un Tremplin pour les Créateurs</h3>
-            <p className="font-serif text-lg max-w-4xl mx-auto text-muted-foreground">
+          <div className="bg-accent px-8 md:px-16 py-12 text-center">
+            <div className="h-[3px] w-12 bg-foreground mx-auto mb-6" />
+            <h3 className="text-2xl md:text-3xl font-display font-bold uppercase mb-6 text-foreground">Un Tremplin pour les Créateurs</h3>
+            <p className="font-serif text-lg max-w-4xl mx-auto text-foreground/80">
               Les films lauréats seront projetés en <strong>novembre 2026 à Bourges</strong>, puis diffusés dans des cinémas de la région Centre. 
               Ils seront également accessibles sur une plateforme dédiée. <br className="hidden md:block" />
               Chaque lauréat recevra une récompense (matériel technique, accompagnement de projet, aide à la diffusion).
@@ -470,36 +482,41 @@ export default function Home() {
       </section>
 
       {/* 7. CONTACT & PARTENAIRES */}
-      <section id="contact" className="py-24 bg-background">
+      <section id="contact" className="py-24 bg-foreground text-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 text-foreground">Contact & Équipe</h2>
-            <p className="text-xl font-serif text-muted-foreground max-w-3xl mx-auto">
-              Les responsables du festival sont <strong>Pauline Michel</strong> et <strong>Thibaud Deschamps</strong>, deux jeunes professionnels attachés au Berry, produisant des films au Pays de George Sand.
+          <div className="text-center mb-16">
+            <div className="h-[2px] w-12 bg-primary-foreground mx-auto mb-6" />
+            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 text-background">Contact & Équipe</h2>
+            <p className="text-xl font-serif text-background/60 max-w-3xl mx-auto">
+              Les responsables du festival sont <strong className="text-background">Pauline Michel</strong> et <strong className="text-background">Thibaud Deschamps</strong>, deux jeunes professionnels attachés au Berry, produisant des films au Pays de George Sand.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
             {/* Pauline */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col sm:flex-row items-center sm:items-start gap-8 bg-secondary p-6 border border-border"
+              className="border border-background/10 p-8"
             >
-              <img 
-                src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/1640109001838.jpeg" 
-                alt="Pauline Michel" 
-                className="w-40 h-40 object-cover border-2 border-primary grayscale hover:grayscale-0 transition-all duration-500"
-              />
-              <div>
-                <h3 className="text-2xl font-display font-bold uppercase mb-2">Pauline Michel</h3>
-                <p className="font-sans text-primary font-bold mb-4">Productrice audiovisuelle</p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center"><Mail className="w-4 h-4 mr-2" /> pauline.c.michel@gmail.com</p>
-                  <p className="flex items-center"><span className="w-4 h-4 mr-2 text-center font-bold">✆</span> 06 81 79 53 09</p>
-                  <span className="inline-block mt-2 bg-black text-white text-xs px-2 py-1 uppercase tracking-widest font-display">Contact Prix</span>
+              <div className="flex items-start gap-6">
+                <img 
+                  src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/1640109001838.jpeg" 
+                  alt="Pauline Michel" 
+                  className="w-20 h-20 object-cover shrink-0 grayscale border border-background/20"
+                />
+                <div className="min-w-0">
+                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-background">Pauline Michel</h3>
+                  <p className="font-sans text-primary-foreground font-bold text-sm mb-4">Productrice audiovisuelle</p>
+                  <div className="space-y-2 text-sm text-background/70">
+                    <p className="flex items-center gap-2 flex-wrap"><Mail className="w-3.5 h-3.5 shrink-0 text-primary-foreground" /> <span>pauline.c.michel@gmail.com</span></p>
+                    <p className="flex items-center gap-2"><span className="font-bold text-primary-foreground">✆</span> 06 81 79 53 09</p>
+                  </div>
                 </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-background/10">
+                <span className="inline-block bg-primary-foreground text-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">Contact Prix</span>
               </div>
             </motion.div>
 
@@ -508,44 +525,49 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-col sm:flex-row items-center sm:items-start gap-8 bg-secondary p-6 border border-border"
+              transition={{ delay: 0.15 }}
+              className="border border-background/10 p-8"
             >
-              <img 
-                src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/thibaud-2.jpeg" 
-                alt="Thibaud Deschamps" 
-                className="w-40 h-40 object-cover border-2 border-primary grayscale hover:grayscale-0 transition-all duration-500"
-              />
-              <div>
-                <h3 className="text-2xl font-display font-bold uppercase mb-2">Thibaud Deschamps</h3>
-                <p className="font-sans text-primary font-bold mb-4">Monteur & Réalisateur</p>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center"><Mail className="w-4 h-4 mr-2" /> thib.deschamps@hotmail.fr</p>
-                  <p className="flex items-center"><span className="w-4 h-4 mr-2 text-center font-bold">✆</span> 06 75 13 17 54</p>
-                  <span className="inline-block mt-2 bg-black text-white text-xs px-2 py-1 uppercase tracking-widest font-display">Contact Résidence</span>
+              <div className="flex items-start gap-6">
+                <img 
+                  src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/thibaud-2.jpeg" 
+                  alt="Thibaud Deschamps" 
+                  className="w-20 h-20 object-cover shrink-0 grayscale border border-background/20"
+                />
+                <div className="min-w-0">
+                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-background">Thibaud Deschamps</h3>
+                  <p className="font-sans text-primary-foreground font-bold text-sm mb-4">Monteur & Réalisateur</p>
+                  <div className="space-y-2 text-sm text-background/70">
+                    <p className="flex items-center gap-2 flex-wrap"><Mail className="w-3.5 h-3.5 shrink-0 text-primary-foreground" /> <span>thib.deschamps@hotmail.fr</span></p>
+                    <p className="flex items-center gap-2"><span className="font-bold text-primary-foreground">✆</span> 06 75 13 17 54</p>
+                  </div>
                 </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-background/10">
+                <span className="inline-block bg-primary-foreground text-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">Contact Résidence</span>
               </div>
             </motion.div>
           </div>
 
-          <div className="border-t-2 border-border pt-16 text-center">
-            <h3 className="text-2xl font-display font-bold uppercase mb-8">Nos Partenaires</h3>
-            <p className="font-serif text-lg mb-8 text-muted-foreground">
-              Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour. <br/>
-              Porté par l'association <strong>Culture en Vallée Noire</strong>, présidée par Xavier Couture.
+          <div className="border-t border-background/10 pt-16 text-center">
+            <h3 className="text-2xl font-display font-bold uppercase mb-6 text-background">Nos Partenaires</h3>
+            <p className="font-serif text-lg mb-10 text-background/60">
+              Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour.<br/>
+              Porté par l'association <strong className="text-background">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
             </p>
-            <div className="flex justify-center items-center gap-12 flex-wrap">
+            <div className="flex justify-center items-center gap-10 flex-wrap mb-10">
               <img 
                 src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/cvn_logo-06.png" 
                 alt="Culture en Vallée Noire" 
-                className="h-24 object-contain opacity-80 hover:opacity-100 transition-opacity grayscale"
+                className="h-16 object-contain opacity-60 hover:opacity-100 transition-opacity invert"
               />
+              <img src="/logo-lachatre.png" alt="La Châtre" className="h-8 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/logo-annee-gs.png" alt="Année George Sand 2026" className="h-14 object-contain opacity-60 hover:opacity-100 transition-opacity" style={{ mixBlendMode: "screen" }} />
             </div>
-            
-            <div className="mt-12 flex justify-center items-center gap-2 text-primary font-bold hover:underline cursor-pointer">
-              <Mail className="w-5 h-5" />
-              <a href="mailto:cultureenvalleenoire@gmail.com">cultureenvalleenoire@gmail.com</a>
-            </div>
+            <a href="mailto:cultureenvalleenoire@gmail.com" className="inline-flex items-center gap-2 text-primary-foreground font-bold hover:underline">
+              <Mail className="w-4 h-4" />
+              cultureenvalleenoire@gmail.com
+            </a>
           </div>
         </div>
       </section>
