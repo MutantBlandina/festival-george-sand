@@ -1,0 +1,14 @@
+packages:
+  "framer-motion": "For cinematic scroll animations and immersive transitions"
+  "lucide-react": "For beautiful, consistent UI icons"
+  "clsx": "For conditional class merging"
+  "tailwind-merge": "For tailwind class deduplication"
+  "@hookform/resolvers": "Zod validation with react-hook-form"
+  "react-hook-form": "For form state management"
+
+images: []
+
+notes:
+  - Landing page is purely static/frontend, no real backend API is required.
+  - Form submission simulates an API call with a timeout and toast notification.
+  - All styling utilizes custom HSL variables to match the exact branding colors (Violet and Pale Yellow).
