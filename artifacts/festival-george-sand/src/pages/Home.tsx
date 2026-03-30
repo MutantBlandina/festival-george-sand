@@ -334,23 +334,32 @@ export default function Home() {
                 className={cn(
                   "p-8 flex flex-col gap-5 group transition-colors duration-300 border-l-2",
                   item.highlight
-                    ? "bg-primary-foreground/15 border-primary-foreground hover:bg-primary-foreground/25"
-                    : "bg-black/30 border-primary-foreground/30 hover:bg-black/40 hover:border-primary-foreground",
+                    ? "bg-primary-foreground text-foreground border-foreground/30 hover:bg-primary-foreground/90"
+                    : "bg-white/15 border-primary-foreground/50 hover:bg-white/22 hover:border-primary-foreground",
                 )}
               >
-                <span className="text-5xl font-display font-black text-primary-foreground/25 leading-none select-none">
+                <span className={cn(
+                  "text-5xl font-display font-black leading-none select-none",
+                  item.highlight ? "text-foreground/15" : "text-white/20"
+                )}>
                   {item.num}
                 </span>
                 <div className="flex-1">
-                  <div className="text-xs font-display font-bold uppercase tracking-[0.2em] mb-3 text-primary-foreground">
+                  <div className={cn(
+                    "text-xs font-display font-bold uppercase tracking-[0.2em] mb-3",
+                    item.highlight ? "text-foreground/60" : "text-primary-foreground"
+                  )}>
                     {item.date}
                   </div>
-                  <p className="font-serif text-base text-white/90 leading-snug group-hover:text-white transition-colors duration-300">
+                  <p className={cn(
+                    "font-serif text-base leading-snug transition-colors duration-300",
+                    item.highlight ? "text-foreground font-semibold" : "text-white/90 group-hover:text-white"
+                  )}>
                     {item.text}
                   </p>
                 </div>
                 {item.highlight && (
-                  <Trophy className="w-5 h-5 text-primary-foreground" />
+                  <Trophy className="w-5 h-5 text-foreground/40" />
                 )}
               </motion.div>
             ))}
@@ -656,37 +665,35 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="border border-background/10 p-8"
+              className="bg-background p-8"
             >
               <div className="flex items-start gap-6">
                 <img
                   src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/1640109001838.jpeg"
                   alt="Pauline Michel"
-                  className="w-20 h-20 object-cover shrink-0 grayscale border border-background/20"
+                  className="w-20 h-20 object-cover shrink-0 grayscale border border-border"
                 />
                 <div className="min-w-0">
-                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-background">
+                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-foreground">
                     Pauline Michel
                   </h3>
-                  <p className="font-sans text-primary-foreground font-bold text-sm mb-4">
+                  <p className="font-sans text-primary font-bold text-sm mb-4">
                     Productrice audiovisuelle
                   </p>
-                  <div className="space-y-2 text-sm text-background/70">
+                  <div className="space-y-2 text-sm text-muted-foreground">
                     <p className="flex items-center gap-2 flex-wrap">
-                      <Mail className="w-3.5 h-3.5 shrink-0 text-primary-foreground" />{" "}
+                      <Mail className="w-3.5 h-3.5 shrink-0 text-primary" />{" "}
                       <span>pauline.c.michel@gmail.com</span>
                     </p>
                     <p className="flex items-center gap-2">
-                      <span className="font-bold text-primary-foreground">
-                        ✆
-                      </span>{" "}
+                      <span className="font-bold text-primary">✆</span>{" "}
                       06 81 79 53 09
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mt-6 pt-6 border-t border-background/10">
-                <span className="inline-block bg-primary-foreground text-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">
+              <div className="mt-6 pt-6 border-t border-border">
+                <span className="inline-block bg-primary text-primary-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">
                   Contact Prix
                 </span>
               </div>
@@ -698,37 +705,35 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15 }}
-              className="border border-background/10 p-8"
+              className="bg-background p-8"
             >
               <div className="flex items-start gap-6">
                 <img
                   src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/thibaud-2.jpeg"
                   alt="Thibaud Deschamps"
-                  className="w-20 h-20 object-cover shrink-0 grayscale border border-background/20"
+                  className="w-20 h-20 object-cover shrink-0 grayscale border border-border"
                 />
                 <div className="min-w-0">
-                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-background">
+                  <h3 className="text-xl font-display font-bold uppercase mb-1 text-foreground">
                     Thibaud Deschamps
                   </h3>
-                  <p className="font-sans text-primary-foreground font-bold text-sm mb-4">
+                  <p className="font-sans text-primary font-bold text-sm mb-4">
                     Monteur & Réalisateur
                   </p>
-                  <div className="space-y-2 text-sm text-background/70">
+                  <div className="space-y-2 text-sm text-muted-foreground">
                     <p className="flex items-center gap-2 flex-wrap">
-                      <Mail className="w-3.5 h-3.5 shrink-0 text-primary-foreground" />{" "}
+                      <Mail className="w-3.5 h-3.5 shrink-0 text-primary" />{" "}
                       <span>thib.deschamps@hotmail.fr</span>
                     </p>
                     <p className="flex items-center gap-2">
-                      <span className="font-bold text-primary-foreground">
-                        ✆
-                      </span>{" "}
+                      <span className="font-bold text-primary">✆</span>{" "}
                       06 75 13 17 54
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mt-6 pt-6 border-t border-background/10">
-                <span className="inline-block bg-primary-foreground text-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">
+              <div className="mt-6 pt-6 border-t border-border">
+                <span className="inline-block bg-primary text-primary-foreground text-xs px-3 py-1.5 uppercase tracking-widest font-display font-bold">
                   Contact Résidence
                 </span>
               </div>
