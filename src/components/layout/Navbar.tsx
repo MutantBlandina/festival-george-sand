@@ -59,7 +59,7 @@ export function Navbar() {
               </a>
             ))}
             <Button asChild variant="accent" className="font-bold">
-              <a href="#proposer">Déposer un film</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform" target="_blank" rel="noopener noreferrer">Candidater à la résidence</a>
             </Button>
           </nav>
 
@@ -92,7 +92,7 @@ export function Navbar() {
               </a>
             ))}
             <Button asChild variant="primary" className="w-full mt-4">
-              <a href="#proposer" onClick={() => setMobileMenuOpen(false)}>Déposer un film</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>Candidater à la résidence</a>
             </Button>
           </div>
         </div>

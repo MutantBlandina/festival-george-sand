@@ -162,11 +162,18 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="mt-6"
+              className="mt-6 flex flex-wrap gap-4"
             >
               <Button size="lg" variant="primary" asChild className="group">
                 <a href="#apropos">
                   Découvrir le festival
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" asChild className="group border-2 border-primary-foreground text-primary-foreground bg-black/30 backdrop-blur-sm hover:bg-primary-foreground hover:text-black">
+                <a href="#residence">
+                  <Clock className="mr-2 w-5 h-5" />
+                  Résidence — 8 au 10 mai
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </Button>
@@ -287,15 +294,8 @@ export default function Home() {
       </section>
 
       {/* 3. CALENDRIER SECTION */}
-      <section className="relative overflow-hidden text-white" id="calendrier">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/hero-bg.jpg"
-            alt=""
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-primary/90" />
-        </div>
+      <section className="relative overflow-hidden text-white bg-black" id="calendrier">
+        <div className="grain-overlay" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <motion.div
@@ -310,7 +310,7 @@ export default function Home() {
             </h2>
             <p className="font-serif text-white/60 max-w-xl">
               Les grandes étapes de l'édition 2026 du Festival George Sand du
-              court-métrage.
+              court métrage.
             </p>
           </motion.div>
 
@@ -330,6 +330,7 @@ export default function Home() {
                 num: "03",
                 date: "8–10 Mai 2026",
                 text: "Résidence de production audiovisuelle à La Châtre",
+                highlight: true,
               },
               {
                 num: "04",
@@ -344,7 +345,7 @@ export default function Home() {
               {
                 num: "06",
                 date: "10 & 11 Oct. 2026",
-                text: "Cérémonie du Festival George Sand du court-métrage à La Châtre",
+                text: "Projections et cérémonie du Festival George Sand du court métrage à La Châtre",
                 highlight: true,
               },
             ].map((item, index) => (
@@ -390,7 +391,107 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. PROPOSER UN FILM */}
+      {/* 4. LA RÉSIDENCE */}
+      <section
+        id="residence"
+        className="py-24 bg-primary text-primary-foreground relative overflow-hidden"
+      >
+        {/* Abstract shapes */}
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-black opacity-20 rounded-full blur-3xl" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7">
+              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-6">
+                La Résidence
+              </h2>
+              <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider mb-8 border-2 border-transparent">
+                Du 8 au 10 mai 2026 à La Châtre
+              </div>
+              <p className="text-xl font-serif mb-6 opacity-90">
+                À destination de <strong>15 non-professionnels</strong> (à
+                partir de 14 ans). Apprenez les bases de la création d'un film
+                en 3 jours.
+              </p>
+              <ul className="space-y-4 font-sans text-lg mb-8 opacity-80">
+                <li>• Atelier d'écriture de scénario</li>
+                <li>• Tournage de deux séquences écrites la veille</li>
+                <li>• Montage, mixage et étalonnage des deux séquences + initiation à la composition de musique à l'image</li>
+              </ul>
+              <p className="text-xl font-serif mb-6 opacity-90">
+                Un webinaire de présentation de la résidence aura lieu{" "}
+                <strong>le 22 avril à 19h</strong>.
+              </p>
+              <Button variant="outline" className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSdNmXw0NpdNKbJCDFc23NzlE7mGRtpUDShk4Vg1f3PGUzh-3Q/viewform?usp=header"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  S'inscrire au webinaire
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </a>
+              </Button>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="bg-background text-foreground p-8 border-4 border-accent shadow-2xl">
+                <h3 className="text-2xl font-display font-bold uppercase mb-6 border-b-2 border-border pb-4">
+                  Informations Pratiques
+                </h3>
+                <div className="space-y-4 font-sans mb-8">
+                  <div className="flex items-start">
+                    <Calendar className="w-5 h-5 mr-3 mt-1 text-primary" />
+                    <p>
+                      <strong>Dates :</strong> 8-10 mai 2026 (9h30 - 18h)
+                    </p>
+                  </div>
+                  <div className="flex items-start">
+                    <MapPin className="w-5 h-5 mr-3 mt-1 text-primary" />
+                    <p>
+                      <strong>Lieu :</strong> La Châtre
+                    </p>
+                  </div>
+                  <div className="flex items-start text-muted-foreground text-sm">
+                    <p>
+                      Logement et transport non inclus (propositions sur
+                      demande).
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-secondary p-4 mb-8 border border-border">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-display font-bold uppercase">
+                      Tarif
+                    </span>
+                    <span className="text-xl font-display font-bold text-primary">
+                      GRATUIT
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-sm font-bold text-center text-destructive mb-4 uppercase">
+                  Candidatures avant le 26 avril 2026
+                </p>
+
+                <Button variant="primary" className="w-full" asChild>
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Déposer sa candidature
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. PROPOSER UN FILM */}
       <section id="proposer" className="py-24 bg-black text-white relative">
         <div className="grain-overlay" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -516,7 +617,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SÉLECTION & PRIX */}
+      {/* 6. SÉLECTION & PRIX */}
       <section id="prix" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
@@ -562,10 +663,9 @@ export default function Home() {
               Un Tremplin pour les Créateurs
             </h3>
             <p className="font-serif text-lg max-w-4xl mx-auto text-foreground/80">
-              Les films lauréats seront projetés en{" "}
-              <strong>novembre 2026 à Bourges</strong>, puis diffusés dans des
-              cinémas de la région Centre. Ils seront également accessibles sur
-              une plateforme dédiée. <br className="hidden md:block" />
+              Les films lauréats seront projetés et diffusés dans des
+              cinémas de la région Centre.{" "}
+              <br className="hidden md:block" />
               Chaque lauréat recevra une récompense (matériel technique,
               accompagnement de projet, aide à la diffusion).
             </p>
@@ -573,100 +673,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. LA RÉSIDENCE */}
-      <section
-        id="residence"
-        className="py-24 bg-primary text-primary-foreground relative overflow-hidden"
-      >
-        {/* Abstract shapes */}
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-accent opacity-10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-black opacity-20 rounded-full blur-3xl" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-6">
-                La Résidence
-              </h2>
-              <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider mb-8 border-2 border-transparent">
-                Du 8 au 10 mai 2026 à La Châtre
-              </div>
-              <p className="text-xl font-serif mb-6 opacity-90">
-                À destination de <strong>15 non-professionnels</strong> (à
-                partir de 14 ans). Apprenez les bases de la création d'un film
-                en 3 jours.
-              </p>
-              <ul className="space-y-4 font-sans text-lg mb-8 opacity-80">
-                <li>• Écriture d'un scénario sur George Sand</li>
-                <li>• Aspects techniques : prise de vue, éclairage, son</li>
-                <li>• Post-production : montage, mixage, composition</li>
-                <li>• Suivi du projet jusqu'au dépôt en septembre</li>
-              </ul>
-              <p className="text-xl font-serif mb-6 opacity-90">
-                Un webinaire de présentation de la résidence aura lieu{" "}
-                <strong>le 7 avril à 18h30</strong>. (plus d'informations à
-                venir)
-              </p>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="bg-background text-foreground p-8 border-4 border-accent shadow-2xl">
-                <h3 className="text-2xl font-display font-bold uppercase mb-6 border-b-2 border-border pb-4">
-                  Informations Pratiques
-                </h3>
-                <div className="space-y-4 font-sans mb-8">
-                  <div className="flex items-start">
-                    <Calendar className="w-5 h-5 mr-3 mt-1 text-primary" />
-                    <p>
-                      <strong>Dates :</strong> 8-10 mai 2026 (9h30 - 18h)
-                    </p>
-                  </div>
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 mr-3 mt-1 text-primary" />
-                    <p>
-                      <strong>Lieu :</strong> La Châtre
-                    </p>
-                  </div>
-                  <div className="flex items-start text-muted-foreground text-sm">
-                    <p>
-                      Logement et transport non inclus (propositions sur
-                      demande).
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-secondary p-4 mb-8 border border-border">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="font-display font-bold uppercase">
-                      Tarif
-                    </span>
-                    <span className="text-xl font-display font-bold text-primary">
-                      GRATUIT
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-sm font-bold text-center text-destructive mb-4 uppercase">
-                  Candidatures avant le 26 avril 2026
-                </p>
-
-                <Button variant="primary" className="w-full" asChild>
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Déposer sa candidature
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 7. CONTACT & PARTENAIRES */}
-      <section id="contact" className="py-24 bg-foreground text-background">
+      <section id="contact" className="relative overflow-hidden text-background">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/hero-bg.jpg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-primary/90" />
+        </div>
+        <div className="relative z-10 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="h-[2px] w-12 bg-primary-foreground mx-auto mb-6" />
@@ -692,7 +709,7 @@ export default function Home() {
             >
               <div className="flex items-start gap-6">
                 <img
-                  src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/1640109001838.jpeg"
+                  src="/Pauline.jpg"
                   alt="Pauline Michel"
                   className="w-20 h-20 object-cover shrink-0 grayscale border border-border"
                 />
@@ -732,7 +749,7 @@ export default function Home() {
             >
               <div className="flex items-start gap-6">
                 <img
-                  src="https://festivalgeorgesand.com/wp-content/uploads/2026/02/thibaud-2.jpeg"
+                  src="/Thibaud.jpg"
                   alt="Thibaud Deschamps"
                   className="w-20 h-20 object-cover shrink-0 grayscale border border-border"
                 />
@@ -762,6 +779,69 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+
+          {/* Équipe élargie */}
+          <div className="mb-20">
+            {/* Association CVN */}
+            <h3 className="text-xs font-display font-bold uppercase tracking-[0.2em] text-background/50 mb-8">
+              Association Culture en Vallée Noire
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-16">
+              {[
+                { name: "Xavier Couture", role: "Président", photo: "/Xavier.jpg" },
+                { name: "Florence de Soos", role: "Trésorière", photo: "/Florence.jpg" },
+                { name: "Jean-Baptiste Deschamps", role: "Secrétaire général", photo: "/Jean-Baptiste.jpg" },
+              ].map((member, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className="text-center"
+                >
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-24 h-24 rounded-full object-cover mx-auto mb-4 grayscale"
+                  />
+                  <p className="font-display font-bold text-sm text-primary-foreground">{member.name}</p>
+                  <p className="font-sans text-xs text-background/50">{member.role}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Festival */}
+            <h3 className="text-xs font-display font-bold uppercase tracking-[0.2em] text-background/50 mb-8">
+              Festival George Sand du court métrage
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+              {[
+                { name: "Thibaud Deschamps", role: "Coordinateur résidence", photo: "/Thibaud.jpg" },
+                { name: "Pauline Michel", role: "Coordinatrice prix", photo: "/Pauline.jpg" },
+                { name: "Blandine Chevestrier", role: "Coordinatrice communication", photo: "/Blandine.jpg" },
+                { name: "Müge Altay", role: "Coordinatrice partenariats", photo: "/Muge.jpg" },
+              ].map((member, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className="text-center"
+                >
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-24 h-24 rounded-full object-cover mx-auto mb-4 grayscale"
+                  />
+                  <p className="font-display font-bold text-sm text-primary-foreground">{member.name}</p>
+                  <p className="font-sans text-xs text-background/50">{member.role}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -791,7 +871,7 @@ export default function Home() {
             className="flex justify-center items-center gap-12 flex-wrap mb-10"
           >
             <img
-              src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/cvn_logo-06.png"
+              src="/cvn-logo-noir.png"
               alt="Culture en Vallée Noire"
               className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
             />
