@@ -170,11 +170,12 @@ export default function Home() {
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild className="group border-2 border-primary-foreground text-primary-foreground bg-black/30 backdrop-blur-sm hover:bg-primary-foreground hover:text-black">
+              <Button size="lg" variant="outline" asChild className="group border-2 border-primary-foreground text-primary-foreground bg-black/30 backdrop-blur-sm hover:bg-primary-foreground hover:text-black text-sm sm:text-base">
                 <a href="#residence">
-                  <Clock className="mr-2 w-5 h-5" />
-                  Résidence — 8 au 10 mai
-                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  <Clock className="mr-2 w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                  <span className="sm:hidden">Résidence — 8-10 mai</span>
+                  <span className="hidden sm:inline">Résidence — 8 au 10 mai</span>
+                  <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1 shrink-0" />
                 </a>
               </Button>
             </motion.div>
