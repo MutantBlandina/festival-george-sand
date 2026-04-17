@@ -236,7 +236,7 @@ export default function Home() {
       </section>
 
       {/* 2. À PROPOS SECTION */}
-      <section id="apropos" className="py-24 bg-background relative z-10">
+      <section id="apropos" className="py-24 bg-background relative">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
