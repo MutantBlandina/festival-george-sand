@@ -26,24 +26,9 @@ export function Footer() {
 
           <div className="flex flex-col space-y-6 md:items-end">
             <div className="flex flex-wrap justify-center md:justify-end items-center gap-6">
-              <img 
-                src="/logo-lachatre.png"
-                alt="La Châtre"
-                className="h-8 object-contain opacity-50 hover:opacity-80 transition-opacity"
-              />
-              <img 
-                src="/logo-annee-gs.png"
-                alt="Année George Sand 2026"
-                className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
-              />
               <img
                 src="/cvn-logo-blanc.png"
                 alt="Culture en Vallée Noire"
-                className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
-              />
-              <img
-                src="/Nouvelles_Rennaissances_Label_Blanc.png"
-                alt="Nouvelles Renaissances"
                 className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
               />
             </div>

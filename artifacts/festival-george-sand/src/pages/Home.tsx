@@ -100,12 +100,12 @@ export default function Home() {
           style={{ bottom: "clamp(2rem, 5vh, 4rem)", y: heroContentY, opacity: heroContentOpacity }}
         >
           <div className="max-w-2xl mx-auto lg:mx-0">
-            {/* Decorative pre-title line */}
+            {/* Decorative pre-title line — hidden on small screens to avoid navbar overlap */}
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="origin-left mb-6"
+              className="origin-left mb-6 hidden sm:block"
             >
               <div className="flex items-center gap-4">
                 <motion.div
