@@ -171,7 +171,16 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-  /* Ensure background color fills rounded corners and safe areas on iOS */
   background-color: hsl(48, 23%, 96%);
+}
+
+/* Safe area: the header background covers the notch/status bar zone on iOS */
+header {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Prevent framer-motion stacking contexts from bleeding above the fixed navbar */
+main, section {
+  isolation: isolate;
 }
 

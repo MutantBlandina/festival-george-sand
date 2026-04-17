@@ -25,16 +25,17 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b-2 border-transparent transform-gpu",
+        "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b-2 border-transparent",
         isScrolled
-          ? "bg-background backdrop-blur-md border-border shadow-sm py-2"
-          : "bg-transparent py-4"
+          ? "bg-background border-border shadow-sm"
+          : "bg-transparent"
       )}
     >
-      {/* Safe area spacer — pushes content below the notch/status bar */}
-      <div style={{ height: "env(safe-area-inset-top)" }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+        <div className={cn(
+          "flex justify-between items-center transition-all duration-300",
+          isScrolled ? "py-2" : "py-4"
+        )}>
           <a href="#" className="flex-shrink-0 flex items-center group">
             <img 
               src={isScrolled ? "/logo-violet.png" : "/logo-jaune.png"}
