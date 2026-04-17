@@ -30,8 +30,9 @@ export function Navbar() {
           ? "bg-background backdrop-blur-md border-border shadow-sm py-2"
           : "bg-transparent py-4"
       )}
-      style={{ top: "env(safe-area-inset-top)" }}
     >
+      {/* Safe area spacer — pushes content below the notch/status bar */}
+      <div style={{ height: "env(safe-area-inset-top)" }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <a href="#" className="flex-shrink-0 flex items-center group">
