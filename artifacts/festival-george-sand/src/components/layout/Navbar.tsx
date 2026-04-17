@@ -6,13 +6,22 @@ import { Menu, X } from "lucide-react"
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [safeTop, setSafeTop] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    // Read actual safe area inset via CSS variable (set in index.css)
+    const val = getComputedStyle(document.documentElement)
+      .getPropertyValue("--sat").trim()
+    const px = parseFloat(val)
+    if (px > 0) setSafeTop(px)
   }, [])
 
   const navLinks = [
@@ -25,11 +34,12 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b-2 border-transparent",
+        "fixed top-0 left-0 right-0 z-[100] transition-colors duration-300 border-b-2 border-transparent",
         isScrolled
           ? "bg-background border-border shadow-sm"
           : "bg-transparent"
       )}
+      style={{ paddingTop: safeTop > 0 ? `${safeTop}px` : undefined }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={cn(
@@ -37,9 +47,9 @@ export function Navbar() {
           isScrolled ? "py-2" : "py-4"
         )}>
           <a href="#" className="flex-shrink-0 flex items-center group">
-            <img 
+            <img
               src={isScrolled ? "/logo-violet.png" : "/logo-jaune.png"}
-              alt="Festival George Sand Logo" 
+              alt="Festival George Sand Logo"
               className={cn(
                 "w-auto transition-all duration-300 group-hover:scale-105",
                 isScrolled ? "h-12" : "h-16"

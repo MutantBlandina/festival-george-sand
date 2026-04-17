@@ -172,11 +172,8 @@
 html {
   scroll-behavior: smooth;
   background-color: hsl(48, 23%, 96%);
-}
-
-/* Safe area: the header background covers the notch/status bar zone on iOS */
-header {
-  padding-top: env(safe-area-inset-top);
+  /* CSS variable read by JS in Navbar to apply safe area padding */
+  --sat: env(safe-area-inset-top, 0px);
 }
 
 /* Prevent framer-motion stacking contexts from bleeding above the fixed navbar */
