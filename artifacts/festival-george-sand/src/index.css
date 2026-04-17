@@ -171,4 +171,18 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  /* Ensure background color fills rounded corners and safe areas on iOS */
+  background-color: hsl(48, 23%, 96%);
+}
+
+/* Safe area cover: fills the status bar zone behind the navbar on iOS */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: env(safe-area-inset-top);
+  background-color: hsl(48, 23%, 96%);
+  z-index: 200;
 }

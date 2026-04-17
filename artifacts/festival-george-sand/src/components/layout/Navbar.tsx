@@ -30,7 +30,7 @@ export function Navbar() {
           ? "bg-background backdrop-blur-md border-border shadow-sm py-2"
           : "bg-transparent py-4"
       )}
-      style={{ paddingTop: "env(safe-area-inset-top)" }}
+      style={{ top: "env(safe-area-inset-top)" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
