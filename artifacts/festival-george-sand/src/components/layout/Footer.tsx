@@ -36,14 +36,19 @@ export function Footer() {
                 alt="Année George Sand 2026"
                 className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
               />
-              <img 
-                src="https://festivalgeorgesand.com/wp-content/uploads/2026/01/cvn_logo-06.png" 
-                alt="Culture en Vallée Noire" 
-                className="h-10 object-contain invert brightness-0 opacity-50 hover:opacity-80 transition-opacity"
+              <img
+                src="/cvn-logo-blanc.png"
+                alt="Culture en Vallée Noire"
+                className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
+              />
+              <img
+                src="/Nouvelles_Rennaissances_Label_Blanc.png"
+                alt="Nouvelles Renaissances"
+                className="h-10 object-contain opacity-50 hover:opacity-80 transition-opacity"
               />
             </div>
             <p className="text-sm text-gray-500 font-sans">
-              © 2026 Festival George Sand du Court-métrage.
+              © 2026 Festival George Sand du Court métrage.
             </p>
           </div>
 
