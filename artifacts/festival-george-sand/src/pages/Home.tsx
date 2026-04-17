@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -56,76 +57,119 @@ export default function Home() {
     }
   };
 
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const heroImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const heroContentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const titleWords = ["Festival", "George Sand"];
+  const subtitleChars = "du court métrage".split("");
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
 
       {/* 1. HERO SECTION */}
       <section
+        ref={heroRef}
         className="relative overflow-hidden bg-black"
         style={{ height: "100svh", minHeight: "600px" }}
       >
-        {/* Background image — face positioned to the right */}
-        <div className="absolute inset-0 z-0">
+        {/* Background image with parallax */}
+        <motion.div className="absolute inset-0 z-0" style={{ y: heroImageY, scale: heroImageScale }}>
           <img
             src="/hero-bg.jpg"
             alt="Hero Background"
             className="w-full h-full object-cover"
             style={{ objectPosition: "70% center" }}
           />
-          {/* Subtle overall darkening — no heavy left gradient */}
-          <div className="absolute inset-0 bg-black/25" />
-          {/* Strong bottom-only fade for text readability */}
-          <div className="absolute bottom-0 left-0 right-0 h-[70%] bg-gradient-to-t from-black via-black/50 to-transparent" />
-          <div className="grain-overlay" />
-        </div>
+        </motion.div>
+        {/* Overlays (not parallaxed) */}
+        <div className="absolute inset-0 z-[1] bg-black/25" />
+        <div className="absolute bottom-0 left-0 right-0 h-[70%] z-[1] bg-gradient-to-t from-black via-black/50 to-transparent" />
+        <div className="grain-overlay z-[1]" />
 
-        {/* Content pinned to bottom-left */}
-        <div
+        {/* Content pinned to bottom-left, fades on scroll */}
+        <motion.div
           className="absolute left-0 right-0 z-10 px-6 sm:px-10 lg:px-16 xl:px-24"
-          style={{ bottom: "clamp(2rem, 5vh, 4rem)" }}
+          style={{ bottom: "clamp(2rem, 5vh, 4rem)", y: heroContentY, opacity: heroContentOpacity }}
         >
           <div className="max-w-2xl mx-auto lg:mx-0">
             {/* Decorative pre-title line */}
             <motion.div
               initial={{ opacity: 0, scaleX: 0 }}
               animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               className="origin-left mb-6"
             >
               <div className="flex items-center gap-4">
-                <div className="h-[2px] w-12 bg-primary-foreground" />
-                <span className="font-display text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground">
+                <motion.div
+                  className="h-[2px] bg-primary-foreground"
+                  initial={{ width: 0 }}
+                  animate={{ width: 48 }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+                />
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.7 }}
+                  className="font-display text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground"
+                >
                   Festival de cinéma · Berry · 2026
-                </span>
+                </motion.span>
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <h1
+              className="font-display font-bold uppercase tracking-tight leading-[0.92]"
+              style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
             >
-              <h1
-                className="font-display font-bold uppercase tracking-tight leading-[0.92]"
-                style={{ textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
-              >
-                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white">
-                  Festival
-                </span>
-                <span className="block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-primary-foreground">
-                  George Sand
-                </span>
-                <span className="block text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-white font-medium tracking-[0.15em] mt-2">
-                  du court métrage
-                </span>
-              </h1>
-            </motion.div>
+              {titleWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  className={cn(
+                    "block text-4xl sm:text-5xl lg:text-6xl xl:text-7xl",
+                    i === 0 ? "text-white" : "text-primary-foreground"
+                  )}
+                  initial={{ opacity: 0, y: 60, rotateX: 40 }}
+                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.4 + i * 0.2,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+              <span className="block text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-white font-medium tracking-[0.15em] mt-2 overflow-hidden">
+                {subtitleChars.map((char, i) => (
+                  <motion.span
+                    key={i}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 1.0 + i * 0.03,
+                      ease: "easeOut",
+                    }}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </span>
+            </h1>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.6 }}
               className="mt-6 max-w-lg"
             >
               <p
@@ -141,27 +185,35 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
+              transition={{ duration: 0.6, delay: 1.9 }}
               className="mt-6 flex flex-wrap items-start gap-3"
             >
-              <div className="flex items-center gap-2 border border-primary-foreground/60 bg-black/30 backdrop-blur-sm px-4 py-2">
+              <motion.div
+                className="flex items-center gap-2 border border-primary-foreground/60 bg-black/30 backdrop-blur-sm px-4 py-2"
+                whileHover={{ scale: 1.05, borderColor: "rgba(255,230,100,0.8)" }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <Calendar className="text-primary-foreground w-4 h-4 shrink-0" />
                 <span className="font-display font-bold tracking-wider text-sm text-white">
                   10 & 11 OCT. 2026
                 </span>
-              </div>
-              <div className="flex items-center gap-2 border border-white/40 bg-black/30 backdrop-blur-sm px-4 py-2">
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-2 border border-white/40 bg-black/30 backdrop-blur-sm px-4 py-2"
+                whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.7)" }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <MapPin className="text-white w-4 h-4 shrink-0" />
                 <span className="font-display font-semibold tracking-wider text-sm text-white">
                   La Châtre, Berry
                 </span>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 2.1 }}
               className="mt-6 flex flex-wrap gap-4"
             >
               <Button size="lg" variant="primary" asChild className="group">
@@ -180,7 +232,7 @@ export default function Home() {
               </Button>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. À PROPOS SECTION */}
@@ -360,7 +412,7 @@ export default function Home() {
                   "p-8 flex flex-col gap-5 group transition-colors duration-300 border-l-2",
                   item.highlight
                     ? "bg-primary-foreground text-foreground border-foreground/30 hover:bg-primary-foreground/90"
-                    : "bg-white/15 border-primary-foreground/50 hover:bg-white/22 hover:border-primary-foreground",
+                    : "bg-primary border-primary-foreground/30 hover:bg-primary/80 hover:border-primary-foreground/60",
                 )}
               >
                 <span className={cn(
