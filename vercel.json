@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd artifacts/festival-george-sand && npm install && npm run build",
+  "outputDirectory": "artifacts/festival-george-sand/dist",
+  "installCommand": "echo 'skip global install'"
+}
