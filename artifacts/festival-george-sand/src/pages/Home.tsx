@@ -58,14 +58,15 @@ export default function Home() {
   };
 
   const heroRef = useRef<HTMLElement>(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const heroImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const heroContentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroImageY = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "25%"]);
+  const heroImageScale = useTransform(scrollYProgress, [0, 1], isMobile ? [1, 1] : [1, 1.15]);
+  const heroContentY = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [0, 120]);
+  const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], isMobile ? [1, 1] : [1, 0]);
 
   const titleWords = ["Festival", "George Sand"];
   const subtitleChars = "du court métrage".split("");
