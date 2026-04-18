@@ -929,29 +929,29 @@ export default function Home() {
             className="flex justify-center items-center gap-12 flex-wrap mb-10"
           >
             <img
-              src="/cvn-logo-noir.png"
+              src="/CVN_logo-02.png"
               alt="Culture en Vallée Noire"
-              className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
+              className="h-24 object-contain opacity-70 hover:opacity-100 transition-opacity"
             />
             <a href="https://www.lachatre.fr/" target="_blank" rel="noopener noreferrer" className="flex items-center">
               <img
                 src="/logo-lachatre-png.png"
                 alt="La Châtre"
-                className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity"
+                className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
               />
             </a>
             <a href="https://www.berryprovince.com/culture-et-patrimoine/george-sand-2026/" target="_blank" rel="noopener noreferrer" className="flex items-center">
               <img
                 src="/logo-annee-gs-dark.png"
                 alt="Année George Sand 2026"
-                className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
+                className="h-24 object-contain opacity-70 hover:opacity-100 transition-opacity"
               />
             </a>
             <a href="https://www.nouvelles-renaissances.com/" target="_blank" rel="noopener noreferrer" className="flex items-center">
               <img
                 src="/Nouvelles_Rennaissances_Label_Noir.png"
                 alt="Nouvelles Renaissances"
-                className="h-16 object-contain opacity-70 hover:opacity-100 transition-opacity"
+                className="h-24 object-contain opacity-70 hover:opacity-100 transition-opacity"
               />
             </a>
           </motion.div>
