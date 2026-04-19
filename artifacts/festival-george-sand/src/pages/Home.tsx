@@ -218,7 +218,7 @@ export default function Home() {
             ))}
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6 text-lg text-muted-foreground">
               <div className="grid grid-cols-3 gap-0 border-2 border-foreground mb-8">
                 {[
@@ -234,30 +234,31 @@ export default function Home() {
               </div>
               <p>La cérémonie aura lieu les <strong className="text-foreground">10 & 11 octobre 2026</strong> à <strong className="text-foreground">La Châtre en Berry</strong>, à quelques kilomètres de Nohant. Une <strong className="text-foreground">résidence de production audiovisuelle</strong> à destination des amateurs se tiendra le week-end du 8 mai.</p>
               <p>Les films présentés doivent être liés aux idées ou à la vie de George Sand — émancipation, écologie, engagement politique, proximité du territoire, légendes — et raconter notre monde sous le prisme de sa modernité.</p>
+
+              {/* Bandeau anniversaire + logos */}
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.25 }} className="pt-4">
+                <div className="bg-foreground text-background px-6 py-4">
+                  <span className="font-display font-bold uppercase tracking-widest text-xs">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-10 pt-6">
+                  <a href="https://www.lachatre.fr/" target="_blank" rel="noopener noreferrer">
+                    <img src="/logo-lachatre-png.png" alt="La Châtre" className="h-14 object-contain opacity-80 hover:opacity-100 transition-opacity" />
+                  </a>
+                  <a href="https://www.berryprovince.com/culture-et-patrimoine/george-sand-2026/" target="_blank" rel="noopener noreferrer">
+                    <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-16 object-contain opacity-80 hover:opacity-100 transition-opacity" />
+                  </a>
+                </div>
+              </motion.div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }} className="relative">
-              <div className="relative overflow-hidden border-2 border-foreground" style={{ aspectRatio: "3/4" }}>
-                <motion.img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-full h-full object-cover object-top" initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
-                <div className="grain-overlay" style={{ opacity: 0.1 }} />
+            {/* Affiche — pleine hauteur, non rognée */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }}>
+              <div className="relative overflow-hidden border-2 border-foreground bg-background">
+                <motion.img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-full h-auto block" initial={{ scale: 1.04 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
+                <div className="grain-overlay" style={{ opacity: 0.08 }} />
               </div>
-              <div className="absolute -bottom-3 -right-3 w-full h-full border-2 border-primary -z-10" />
             </motion.div>
           </div>
-
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.35 }}>
-            <div className="bg-foreground text-background px-10 py-6 flex items-center justify-center">
-              <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-12 pt-8">
-              <a href="https://www.lachatre.fr/" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <img src="/logo-lachatre-png.png" alt="La Châtre" className="h-16 object-contain opacity-80 hover:opacity-100 transition-opacity" />
-              </a>
-              <a href="https://www.berryprovince.com/culture-et-patrimoine/george-sand-2026/" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <img src="/logo-annee-gs-dark.png" alt="Année George Sand 2026" className="h-20 object-contain opacity-80 hover:opacity-100 transition-opacity" />
-              </a>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -355,19 +356,20 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center center", transform: "translateZ(0)", willChange: "auto" }}
             />
-            {/* Overlay clair — fond chaleureux, texte sombre */}
-            <div className="absolute inset-0 bg-background/82" />
+            {/* Filtre violet léger sur la photo */}
+            <div className="absolute inset-0 bg-primary/42" />
+            <div className="grain-overlay" style={{ opacity: 0.08 }} />
 
             <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 lg:p-16" style={{ minHeight: "480px" }}>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                <div className="h-[2px] w-12 bg-primary mb-6" />
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase text-foreground mb-4 leading-tight">
+                <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase text-white mb-4 leading-tight">
                   La<br />Résidence
                 </h2>
-                <div className="inline-block bg-primary text-primary-foreground px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-4">
+                <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-4">
                   Du 8 au 10 mai 2026 · La Châtre
                 </div>
-                <p className="text-lg font-serif text-foreground/70 max-w-sm leading-relaxed">
+                <p className="text-lg font-serif text-white/80 max-w-sm leading-relaxed">
                   Apprenez les bases de la création d'un film en 3 jours, aux côtés de professionnels.
                 </p>
               </motion.div>
@@ -377,7 +379,7 @@ export default function Home() {
                 <img
                   src="/Affiche-residence.jpg"
                   alt="Affiche de la Résidence"
-                  className="w-40 md:w-48 object-contain shadow-2xl border border-foreground/20 hover:scale-105 transition-transform duration-300"
+                  className="w-40 md:w-48 object-contain shadow-2xl border border-white/20 hover:scale-105 transition-transform duration-300"
                 />
               </motion.div>
             </div>
@@ -393,16 +395,16 @@ export default function Home() {
                   À destination de <strong className="text-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
                 </p>
 
-                {/* Programme */}
-                <div className="space-y-0 mb-8 border-2 border-border">
+                {/* Programme — liste légère */}
+                <div className="mb-8 space-y-3">
                   {[
                     { step: "Jour 1", label: "Atelier d'écriture de scénario" },
                     { step: "Jour 2", label: "Tournage des séquences" },
                     { step: "Jour 3", label: "Montage, mixage, étalonnage & musique à l'image" },
                   ].map((s, i) => (
-                    <div key={i} className={cn("flex items-start gap-4 px-6 py-5", i < 2 ? "border-b-2 border-border" : "")}>
-                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary pt-0.5 w-12 shrink-0">{s.step}</span>
-                      <span className="font-sans text-foreground/80 text-sm">{s.label}</span>
+                    <div key={i} className="flex items-baseline gap-3">
+                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary shrink-0">{s.step} —</span>
+                      <span className="font-serif text-foreground/80 text-sm">{s.label}</span>
                     </div>
                   ))}
                 </div>
@@ -478,7 +480,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
-            {/* Colonne gauche : infos */}
+            {/* Colonne gauche : conditions + thèmes */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-10">
 
               <div>
@@ -507,48 +509,51 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-
-              <div className="bg-primary/20 border border-primary/40 p-8">
-                <div className="text-xs font-display font-bold uppercase tracking-widest text-white/40 mb-4">Dépôt des films</div>
-                <p className="font-display font-bold text-2xl text-white mb-2">8 juin — 6 sept. 2026</p>
-                <p className="font-serif text-white/60 text-sm mb-6">Ouvert à toutes et à tous, professionnels ou amateurs.</p>
-                <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                  <span className="font-display font-bold uppercase text-xs tracking-widest text-white/40">Frais d'inscription</span>
-                  <span className="font-display font-black text-2xl text-primary-foreground">12€</span>
-                </div>
-              </div>
             </motion.div>
 
-            {/* Colonne droite : formulaire + affiche festival */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-col gap-8">
+            {/* Colonne droite : dépôt des films (proéminent) + alerte (discrète) */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-col gap-10">
 
-              {/* Formulaire */}
-              <div className="border border-white/15 bg-white/4 p-8 md:p-10">
-                <div className="w-12 h-[3px] bg-primary-foreground mb-8" />
-                <h3 className="text-2xl font-display font-bold uppercase mb-2 text-white">Être alerté dès l'ouverture</h3>
-                <p className="font-serif text-white/60 mb-8">
-                  Soyez informé par mail dès l'ouverture du concours le <strong className="text-white">8 juin 2026</strong>.
-                </p>
-                <form onSubmit={handleSubscribe} className="space-y-5">
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="font-display font-bold text-xs uppercase tracking-widest text-white/60">Adresse e-mail</label>
-                    <Input id="email" type="email" required placeholder="votre@email.com" className="border border-white/20 bg-white/5 text-white placeholder:text-white/30 focus-visible:border-primary-foreground h-12" />
-                  </div>
-                  <Button type="submit" variant="primary" className="w-full h-12 font-display uppercase tracking-wider">M'alerter à l'ouverture du concours</Button>
-                  <p className="text-xs text-white/30 text-center">Aucun spam — uniquement l'annonce d'ouverture du concours.</p>
-                </form>
-                <div className="border-t border-white/10 mt-8 pt-8">
-                  <p className="font-display font-bold uppercase text-xs tracking-widest text-white/40 mb-4">Candidatures pour la Résidence</p>
-                  <Button variant="outline" className="w-full border border-white/25 text-white hover:bg-white hover:text-black h-12 font-display uppercase tracking-wider" asChild>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform" target="_blank" rel="noopener noreferrer">
-                      Candidater à la résidence →
-                    </a>
-                  </Button>
+              {/* Dépôt des films — élément principal */}
+              <div className="bg-primary/20 border border-primary/40 p-8 md:p-10">
+                <div className="text-xs font-display font-bold uppercase tracking-widest text-white/40 mb-4">Appel à films</div>
+                <p className="font-display font-black text-4xl md:text-5xl text-white leading-tight mb-1">8 juin —</p>
+                <p className="font-display font-black text-4xl md:text-5xl text-primary-foreground leading-tight mb-5">6 sept. 2026</p>
+                <p className="font-serif text-white/60 text-base mb-8">Ouvert à toutes et à tous, professionnels ou amateurs, partout en France.</p>
+                <div className="flex items-center justify-between border-t border-white/10 pt-6">
+                  <span className="font-display font-bold uppercase text-xs tracking-widest text-white/40">Frais d'inscription</span>
+                  <span className="font-display font-black text-4xl text-primary-foreground">12€</span>
                 </div>
+              </div>
+
+              {/* Être alerté — discret, sous le bloc principal */}
+              <div className="border-t border-white/10 pt-6">
+                <p className="font-display font-bold text-xs uppercase tracking-widest text-white/35 mb-4">Être alerté à l'ouverture du concours</p>
+                <p className="font-serif text-white/40 text-sm mb-4">Recevez un e-mail le 8 juin 2026 dès l'ouverture du dépôt de films.</p>
+                <form onSubmit={handleSubscribe} className="flex gap-3">
+                  <Input id="email" type="email" required placeholder="votre@email.com" className="border border-white/15 bg-white/5 text-white placeholder:text-white/25 focus-visible:border-primary-foreground h-10 flex-1 text-sm" />
+                  <Button type="submit" variant="primary" className="h-10 px-5 font-display text-xs uppercase tracking-wider shrink-0">M'alerter</Button>
+                </form>
+                <p className="text-xs text-white/20 mt-3">Aucun spam — uniquement l'annonce d'ouverture.</p>
               </div>
 
             </motion.div>
           </div>
+
+          {/* Résidence — séparé, en bas de section */}
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="mt-20 border-t border-white/10 pt-12">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div>
+                <p className="font-display font-bold text-xs uppercase tracking-widest text-white/35 mb-2">Résidence de production audiovisuelle</p>
+                <p className="font-serif text-white/70 text-lg max-w-xl">Candidatez à la résidence filmique du <strong className="text-white">8 au 10 mai 2026</strong> — gratuite, ouverte aux non-professionnels à partir de 14 ans.</p>
+              </div>
+              <Button variant="outline" className="border border-white/30 text-white hover:bg-white hover:text-black h-12 px-8 font-display uppercase tracking-wider whitespace-nowrap shrink-0" asChild>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform" target="_blank" rel="noopener noreferrer">
+                  Candidater à la résidence →
+                </a>
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
