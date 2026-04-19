@@ -218,29 +218,28 @@ export default function Home() {
             ))}
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-16 items-start">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6 text-lg text-muted-foreground">
-              <div className="grid grid-cols-3 gap-0 border-2 border-foreground mb-8">
+              {/* Tableau violet */}
+              <div className="grid grid-cols-3 gap-0 bg-primary mb-8">
                 {[
                   { label: "Formats",     value: "Fiction · Doc · Animation" },
                   { label: "Ouvert à",    value: "Pros & Amateurs" },
                   { label: "Inscription", value: "12€ par film" },
                 ].map((item, i) => (
-                  <div key={i} className={cn("p-4 text-center", i < 2 ? "border-r-2 border-foreground" : "")}>
-                    <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-muted-foreground mb-1">{item.label}</div>
-                    <div className="text-xs md:text-sm font-serif font-semibold text-foreground">{item.value}</div>
+                  <div key={i} className={cn("p-4 text-center", i < 2 ? "border-r border-primary-foreground/20" : "")}>
+                    <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-primary-foreground/50 mb-1">{item.label}</div>
+                    <div className="text-xs md:text-sm font-serif font-semibold text-primary-foreground">{item.value}</div>
                   </div>
                 ))}
               </div>
               <p>La cérémonie aura lieu les <strong className="text-foreground">10 & 11 octobre 2026</strong> à <strong className="text-foreground">La Châtre en Berry</strong>, à quelques kilomètres de Nohant. Une <strong className="text-foreground">résidence de production audiovisuelle</strong> à destination des amateurs se tiendra le week-end du 8 mai.</p>
               <p>Les films présentés doivent être liés aux idées ou à la vie de George Sand — émancipation, écologie, engagement politique, proximité du territoire, légendes — et raconter notre monde sous le prisme de sa modernité.</p>
 
-              {/* Bandeau anniversaire + logos */}
+              {/* Anniversaire + logos */}
               <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.25 }} className="pt-4">
-                <div className="bg-foreground text-background px-6 py-4">
-                  <span className="font-display font-bold uppercase tracking-widest text-xs">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
-                </div>
-                <div className="flex flex-wrap items-center gap-10 pt-6">
+                <p className="font-display font-bold uppercase tracking-widest text-xs text-primary mb-6">Dans le cadre du 150ème anniversaire de la mort de George Sand</p>
+                <div className="flex flex-wrap items-center gap-10">
                   <a href="https://www.lachatre.fr/" target="_blank" rel="noopener noreferrer">
                     <img src="/logo-lachatre-png.png" alt="La Châtre" className="h-14 object-contain opacity-80 hover:opacity-100 transition-opacity" />
                   </a>
@@ -251,11 +250,11 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Affiche — pleine hauteur, non rognée */}
+            {/* Affiche — légèrement réduite grâce au ratio 3/2 */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }}>
               <div className="relative overflow-hidden border-2 border-foreground bg-background">
                 <motion.img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-full h-auto block" initial={{ scale: 1.04 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
-                <div className="grain-overlay" style={{ opacity: 0.08 }} />
+                <div className="grain-static" style={{ opacity: 0.12 }} />
               </div>
             </motion.div>
           </div>
@@ -356,9 +355,9 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center center", transform: "translateZ(0)", willChange: "auto" }}
             />
-            {/* Filtre violet léger sur la photo */}
+            {/* Filtre violet léger + grain statique (bruit photographique, sans animation) */}
             <div className="absolute inset-0 bg-primary/42" />
-            <div className="grain-overlay" style={{ opacity: 0.08 }} />
+            <div className="grain-static" />
 
             <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 lg:p-16" style={{ minHeight: "480px" }}>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
@@ -385,60 +384,55 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Colonne droite — contenu clair */}
-          <div className="bg-secondary text-foreground relative">
-            <div className="grain-overlay" style={{ opacity: 0.04 }} />
+          {/* Colonne droite — fond noir, contenu cinématographique */}
+          <div className="bg-card text-card-foreground relative">
+            <div className="grain-overlay" style={{ opacity: 0.05 }} />
             <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full">
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }}>
 
-                <p className="text-lg font-serif text-muted-foreground mb-8 leading-relaxed">
-                  À destination de <strong className="text-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
+                <p className="text-lg font-serif text-card-foreground/60 mb-10 leading-relaxed">
+                  À destination de <strong className="text-card-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
                 </p>
 
-                {/* Programme — liste légère */}
-                <div className="mb-8 space-y-3">
+                {/* Programme */}
+                <div className="mb-10 space-y-4">
                   {[
                     { step: "Jour 1", label: "Atelier d'écriture de scénario" },
                     { step: "Jour 2", label: "Tournage des séquences" },
                     { step: "Jour 3", label: "Montage, mixage, étalonnage & musique à l'image" },
                   ].map((s, i) => (
                     <div key={i} className="flex items-baseline gap-3">
-                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary shrink-0">{s.step} —</span>
-                      <span className="font-serif text-foreground/80 text-sm">{s.label}</span>
+                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary-foreground shrink-0">{s.step} —</span>
+                      <span className="font-serif text-card-foreground/70 text-sm">{s.label}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Infos pratiques */}
-                <div className="grid grid-cols-2 gap-0 border-2 border-border mb-6">
-                  <div className="p-4 border-r-2 border-border">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Lieu</div>
-                    <div className="font-serif text-foreground text-sm">La Châtre</div>
-                  </div>
-                  <div className="p-4">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Tarif</div>
-                    <div className="font-display font-black text-primary text-lg">Gratuit</div>
-                  </div>
-                  <div className="p-4 border-t-2 border-r-2 border-border">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Horaires</div>
-                    <div className="font-serif text-foreground text-sm">9h30 – 18h00</div>
-                  </div>
-                  <div className="p-4 border-t-2 border-border">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Places</div>
-                    <div className="font-serif text-foreground text-sm">15 participants</div>
-                  </div>
+                {/* Infos pratiques — légères, sans tableau lourd */}
+                <div className="grid grid-cols-2 gap-6 mb-10 border-t border-b border-card-foreground/10 py-8">
+                  {[
+                    { label: "Lieu",     value: "La Châtre",       accent: false },
+                    { label: "Tarif",    value: "Gratuit",          accent: true  },
+                    { label: "Horaires", value: "9h30 – 18h00",     accent: false },
+                    { label: "Places",   value: "15 participants",  accent: false },
+                  ].map((item, i) => (
+                    <div key={i}>
+                      <div className="text-xs font-display font-bold uppercase tracking-widest text-card-foreground/30 mb-1">{item.label}</div>
+                      <div className={cn("font-display font-bold", item.accent ? "text-xl text-primary-foreground" : "text-sm text-card-foreground")}>{item.value}</div>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Webinaire */}
-                <div className="flex items-center gap-4 bg-primary/10 border border-primary/30 px-5 py-4 mb-6">
+                {/* Webinaire — bloc jaune */}
+                <div className="flex items-center gap-4 bg-accent px-5 py-4 mb-6">
                   <Video className="w-5 h-5 text-primary shrink-0" />
                   <div>
                     <p className="font-display font-bold text-xs uppercase tracking-widest text-primary">Webinaire de présentation</p>
-                    <p className="font-serif text-foreground/70 text-sm">22 avril 2026 · 19h00</p>
+                    <p className="font-serif text-primary/80 text-sm">22 avril 2026 · 19h00</p>
                   </div>
                 </div>
 
-                <p className="text-sm font-display font-bold uppercase tracking-wider text-destructive mb-6">↳ Candidatures avant le 26 avril 2026</p>
+                <p className="text-sm font-display font-bold uppercase tracking-wider text-destructive mb-8">↳ Candidatures avant le 26 avril 2026</p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button variant="primary" asChild className="flex-1">
@@ -446,7 +440,7 @@ export default function Home() {
                       Déposer sa candidature
                     </a>
                   </Button>
-                  <Button variant="outline" className="border-2 border-foreground/30 text-foreground hover:bg-foreground hover:text-background flex-1" asChild>
+                  <Button variant="outline" className="border border-card-foreground/25 text-card-foreground hover:bg-card-foreground hover:text-card flex-1" asChild>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNmXw0NpdNKbJCDFc23NzlE7mGRtpUDShk4Vg1f3PGUzh-3Q/viewform?usp=header" target="_blank" rel="noopener noreferrer">
                       S'inscrire au webinaire
                     </a>
@@ -470,18 +464,19 @@ export default function Home() {
         <div className="grain-overlay z-[1]" style={{ opacity: 0.09 }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
-            <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white mb-4">Candidater</h2>
-            <p className="text-xl font-serif text-white/60 max-w-xl leading-relaxed border-l-4 border-primary pl-6">
-              Proposez une courte histoire qui raconte notre monde sous le prisme de la modernité de George Sand.
-            </p>
-          </motion.div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
-            {/* Colonne gauche : conditions + thèmes */}
+            {/* Colonne gauche : titre + conditions + thèmes */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-10">
+
+              {/* Titre ici pour aligner avec la colonne de droite */}
+              <div>
+                <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+                <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white mb-4">Candidater</h2>
+                <p className="text-xl font-serif text-white/60 max-w-xl leading-relaxed border-l-4 border-primary pl-6">
+                  Proposez une courte histoire qui raconte notre monde sous le prisme de la modernité de George Sand.
+                </p>
+              </div>
 
               <div>
                 <h3 className="font-display font-bold uppercase tracking-widest text-xs text-white/40 mb-5">Conditions d'admission</h3>
