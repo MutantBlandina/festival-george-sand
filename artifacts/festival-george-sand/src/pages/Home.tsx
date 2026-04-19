@@ -395,7 +395,7 @@ export default function Home() {
 
           {/* Colonne gauche — photo plein cadre */}
           <div className="relative overflow-hidden" style={{ minHeight: "320px" }}>
-            <img src="/hero-bg.jpg" alt="En tournage" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "55% center" }} />
+            <img src="/DSCF2163.jpg" alt="En tournage" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "center center" }} />
             {/* Overlay violet pour cohérence de marque */}
             <div className="absolute inset-0 bg-primary/75" />
             <div className="grain-overlay" style={{ opacity: 0.12 }} />
@@ -481,6 +481,62 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
+          5. GALERIE — En tournage
+      ════════════════════════════════════════════════════════════════ */}
+      <section className="bg-black overflow-hidden relative">
+        <div className="grain-overlay" style={{ opacity: 0.13 }} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+            <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white">En Tournage</h2>
+            <p className="font-serif text-white/40 mt-3 italic">Derrière la caméra — Berry, 2026</p>
+          </motion.div>
+        </div>
+
+        {/* Grille mosaïque */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 relative z-10">
+          {[
+            { src: "/DSCF2248.jpg",    pos: "center center", cls: "col-span-2 row-span-2" },
+            { src: "/A7S.jpg",         pos: "center center", cls: "" },
+            { src: "/EPAULIERE.jpg",   pos: "center center", cls: "" },
+            { src: "/H4N.jpg",         pos: "center center", cls: "" },
+            { src: "/Maze2.jpeg",      pos: "center center", cls: "" },
+            { src: "/DSCF2151.jpg",    pos: "center center", cls: "col-span-2" },
+            { src: "/Ronin.png",       pos: "center center", cls: "" },
+            { src: "/STORY BOARD.jpg", pos: "center top",    cls: "" },
+            { src: "/Maze3.jpeg",      pos: "center center", cls: "" },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              className={cn("relative overflow-hidden group cursor-pointer aspect-square", item.cls)}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, delay: i * 0.06 }}
+            >
+              <motion.img
+                src={item.src}
+                alt=""
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                style={{ objectPosition: item.pos }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+              />
+              <div className="absolute inset-0 bg-black/45 group-hover:bg-black/10 transition-all duration-700" />
+              <div className="grain-overlay" style={{ opacity: 0.07 }} />
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-10">
+          <p className="font-display text-xs text-white/20 uppercase tracking-widest text-center">
+            Festival George Sand du Court Métrage · La Châtre · Berry
+          </p>
         </div>
       </section>
 
