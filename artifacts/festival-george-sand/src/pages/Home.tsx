@@ -238,12 +238,8 @@ export default function Home() {
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }} className="relative">
               <div className="relative overflow-hidden border-2 border-foreground" style={{ aspectRatio: "3/4" }}>
-                <motion.img src="/george-sand-violet.png" alt="George Sand" className="w-full h-full object-cover object-top" initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
+                <motion.img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-full h-full object-cover object-top" initial={{ scale: 1.08 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: "easeOut" }} />
                 <div className="grain-overlay" style={{ opacity: 0.1 }} />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-6 py-5">
-                  <p className="font-display font-bold uppercase tracking-wider text-white text-sm">George Sand</p>
-                  <p className="font-serif text-white/50 text-xs">1804 — 1876</p>
-                </div>
               </div>
               <div className="absolute -bottom-3 -right-3 w-full h-full border-2 border-primary -z-10" />
             </motion.div>
@@ -318,7 +314,7 @@ export default function Home() {
                       {/* Date colorée */}
                       <div className={cn(
                         "text-xs font-display font-bold uppercase tracking-[0.25em] mb-2",
-                        item.highlight ? "text-primary-foreground" : "text-primary/80 group-hover:text-primary-foreground/80"
+                        "text-primary-foreground"
                       )}>
                         {item.date}
                       </div>
@@ -359,19 +355,19 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center center", transform: "translateZ(0)", willChange: "auto" }}
             />
-            <div className="absolute inset-0 bg-primary/78" />
-            <div className="grain-overlay" style={{ opacity: 0.09 }} />
+            {/* Overlay clair — fond chaleureux, texte sombre */}
+            <div className="absolute inset-0 bg-background/82" />
 
             <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 lg:p-16" style={{ minHeight: "480px" }}>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-                <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase text-primary-foreground mb-4 leading-tight">
+                <div className="h-[2px] w-12 bg-primary mb-6" />
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase text-foreground mb-4 leading-tight">
                   La<br />Résidence
                 </h2>
-                <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-4">
+                <div className="inline-block bg-primary text-primary-foreground px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-4">
                   Du 8 au 10 mai 2026 · La Châtre
                 </div>
-                <p className="text-lg font-serif text-white/80 max-w-sm leading-relaxed">
+                <p className="text-lg font-serif text-foreground/70 max-w-sm leading-relaxed">
                   Apprenez les bases de la création d'un film en 3 jours, aux côtés de professionnels.
                 </p>
               </motion.div>
@@ -381,62 +377,62 @@ export default function Home() {
                 <img
                   src="/Affiche-residence.jpg"
                   alt="Affiche de la Résidence"
-                  className="w-40 md:w-48 object-contain shadow-2xl border border-white/20 hover:scale-105 transition-transform duration-300"
+                  className="w-40 md:w-48 object-contain shadow-2xl border border-foreground/20 hover:scale-105 transition-transform duration-300"
                 />
               </motion.div>
             </div>
           </div>
 
-          {/* Colonne droite — contenu sombre */}
-          <div className="bg-black text-white relative">
-            <div className="grain-overlay" style={{ opacity: 0.08 }} />
+          {/* Colonne droite — contenu clair */}
+          <div className="bg-secondary text-foreground relative">
+            <div className="grain-overlay" style={{ opacity: 0.04 }} />
             <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full">
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }}>
 
-                <p className="text-lg font-serif text-white/80 mb-8 leading-relaxed">
-                  À destination de <strong className="text-white">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
+                <p className="text-lg font-serif text-muted-foreground mb-8 leading-relaxed">
+                  À destination de <strong className="text-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
                 </p>
 
                 {/* Programme */}
-                <div className="space-y-0 mb-8 border border-white/10">
+                <div className="space-y-0 mb-8 border-2 border-border">
                   {[
                     { step: "Jour 1", label: "Atelier d'écriture de scénario" },
                     { step: "Jour 2", label: "Tournage des séquences" },
                     { step: "Jour 3", label: "Montage, mixage, étalonnage & musique à l'image" },
                   ].map((s, i) => (
-                    <div key={i} className={cn("flex items-start gap-4 px-6 py-5", i < 2 ? "border-b border-white/10" : "")}>
-                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary-foreground/60 pt-0.5 w-12 shrink-0">{s.step}</span>
-                      <span className="font-sans text-white/80 text-sm">{s.label}</span>
+                    <div key={i} className={cn("flex items-start gap-4 px-6 py-5", i < 2 ? "border-b-2 border-border" : "")}>
+                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary pt-0.5 w-12 shrink-0">{s.step}</span>
+                      <span className="font-sans text-foreground/80 text-sm">{s.label}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Infos pratiques */}
-                <div className="grid grid-cols-2 gap-0 border border-white/10 mb-6">
-                  <div className="p-4 border-r border-white/10">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Lieu</div>
-                    <div className="font-serif text-white text-sm">La Châtre</div>
+                <div className="grid grid-cols-2 gap-0 border-2 border-border mb-6">
+                  <div className="p-4 border-r-2 border-border">
+                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Lieu</div>
+                    <div className="font-serif text-foreground text-sm">La Châtre</div>
                   </div>
                   <div className="p-4">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Tarif</div>
-                    <div className="font-display font-black text-primary-foreground text-lg">Gratuit</div>
+                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Tarif</div>
+                    <div className="font-display font-black text-primary text-lg">Gratuit</div>
                   </div>
-                  <div className="p-4 border-t border-r border-white/10">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Horaires</div>
-                    <div className="font-serif text-white text-sm">9h30 – 18h00</div>
+                  <div className="p-4 border-t-2 border-r-2 border-border">
+                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Horaires</div>
+                    <div className="font-serif text-foreground text-sm">9h30 – 18h00</div>
                   </div>
-                  <div className="p-4 border-t border-white/10">
-                    <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Places</div>
-                    <div className="font-serif text-white text-sm">15 participants</div>
+                  <div className="p-4 border-t-2 border-border">
+                    <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">Places</div>
+                    <div className="font-serif text-foreground text-sm">15 participants</div>
                   </div>
                 </div>
 
                 {/* Webinaire */}
-                <div className="flex items-center gap-4 bg-primary/20 border border-primary/40 px-5 py-4 mb-6">
-                  <Video className="w-5 h-5 text-primary-foreground shrink-0" />
+                <div className="flex items-center gap-4 bg-primary/10 border border-primary/30 px-5 py-4 mb-6">
+                  <Video className="w-5 h-5 text-primary shrink-0" />
                   <div>
-                    <p className="font-display font-bold text-xs uppercase tracking-widest text-primary-foreground">Webinaire de présentation</p>
-                    <p className="font-serif text-white/80 text-sm">22 avril 2026 · 19h00</p>
+                    <p className="font-display font-bold text-xs uppercase tracking-widest text-primary">Webinaire de présentation</p>
+                    <p className="font-serif text-foreground/70 text-sm">22 avril 2026 · 19h00</p>
                   </div>
                 </div>
 
@@ -448,7 +444,7 @@ export default function Home() {
                       Déposer sa candidature
                     </a>
                   </Button>
-                  <Button variant="outline" className="border-white/30 text-white hover:bg-white hover:text-black flex-1" asChild>
+                  <Button variant="outline" className="border-2 border-foreground/30 text-foreground hover:bg-foreground hover:text-background flex-1" asChild>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNmXw0NpdNKbJCDFc23NzlE7mGRtpUDShk4Vg1f3PGUzh-3Q/viewform?usp=header" target="_blank" rel="noopener noreferrer">
                       S'inscrire au webinaire
                     </a>
@@ -538,7 +534,7 @@ export default function Home() {
                     <label htmlFor="email" className="font-display font-bold text-xs uppercase tracking-widest text-white/60">Adresse e-mail</label>
                     <Input id="email" type="email" required placeholder="votre@email.com" className="border border-white/20 bg-white/5 text-white placeholder:text-white/30 focus-visible:border-primary-foreground h-12" />
                   </div>
-                  <Button type="submit" variant="primary" className="w-full h-12 font-display uppercase tracking-wider">M'alerter à l'ouverture</Button>
+                  <Button type="submit" variant="primary" className="w-full h-12 font-display uppercase tracking-wider">M'alerter à l'ouverture du concours</Button>
                   <p className="text-xs text-white/30 text-center">Aucun spam — uniquement l'annonce d'ouverture du concours.</p>
                 </form>
                 <div className="border-t border-white/10 mt-8 pt-8">
@@ -551,15 +547,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Affiche festival */}
-              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-center gap-6 border border-white/10 p-6 group hover:border-white/25 transition-colors">
-                <img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-24 md:w-32 shrink-0 object-contain shadow-xl group-hover:scale-105 transition-transform duration-300" />
-                <div>
-                  <p className="font-display font-bold uppercase tracking-widest text-xs text-white/40 mb-2">Affiche officielle</p>
-                  <p className="font-display font-bold text-white text-lg uppercase leading-tight mb-1">Festival George Sand<br />du court métrage</p>
-                  <p className="font-serif text-white/50 text-sm">10 & 11 octobre 2026 · La Châtre</p>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </div>
