@@ -5,7 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar, Trophy, MapPin, Mail, Play, ArrowRight, Clock } from "lucide-react";
+import { Calendar, Trophy, MapPin, Mail, Play, ArrowRight, Clock, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ─── Animated counter ─────────────────────────────────────────────────────────
@@ -13,35 +13,25 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [display, setDisplay] = useState(0);
-
   useEffect(() => {
     if (!isInView) return;
-    const controls = animate(0, value, {
-      duration: 1.8,
-      ease: "easeOut",
-      onUpdate: (v) => setDisplay(Math.round(v)),
-    });
+    const controls = animate(0, value, { duration: 1.8, ease: "easeOut", onUpdate: (v) => setDisplay(Math.round(v)) });
     return controls.stop;
   }, [isInView, value]);
-
   return <span ref={ref}>{display}{suffix}</span>;
 }
 
 // ─── Marquee strip ────────────────────────────────────────────────────────────
 function MarqueeStrip({ dark = false }: { dark?: boolean }) {
-  const words = ["Festival", "George Sand", "Court Métrage", "Berry", "2026", "Cinéma", "Émancipation", "Création"];
+  const words = ["Festival", "George Sand", "Court Métrage", "Berry", "2026", "Cinéma", "Ouvert à tous"];
   return (
     <div className={cn("overflow-hidden py-3 border-y-2 border-border select-none", dark ? "bg-black border-white/10" : "bg-primary")}>
       <div className="marquee-track flex items-center">
         {[...Array(4)].map((_, rep) => (
           <div key={rep} className="flex items-center shrink-0">
             {words.map((word, i) => (
-              <span key={i} className={cn(
-                "flex items-center font-display font-bold uppercase tracking-[0.25em] text-sm px-6 whitespace-nowrap",
-                dark ? "text-white/30" : "text-primary-foreground"
-              )}>
-                {word}
-                <span className={cn("ml-6", dark ? "text-white/10" : "text-accent/70")}>◆</span>
+              <span key={i} className={cn("flex items-center font-display font-bold uppercase tracking-[0.25em] text-sm px-6 whitespace-nowrap", dark ? "text-white/30" : "text-primary-foreground")}>
+                {word}<span className={cn("ml-6", dark ? "text-white/10" : "text-accent/70")}>◆</span>
               </span>
             ))}
           </div>
@@ -54,20 +44,8 @@ function MarqueeStrip({ dark = false }: { dark?: boolean }) {
 // ─── Flip card (Prix) ─────────────────────────────────────────────────────────
 function FlipCard({ name, description, index }: { name: string; description: string; index: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.06 }}
-      className="group h-44 cursor-pointer"
-      style={{ perspective: "1000px" }}
-    >
-      <motion.div
-        className="relative w-full h-full"
-        style={{ transformStyle: "preserve-3d" }}
-        whileHover={{ rotateY: 180 }}
-        transition={{ duration: 0.55, ease: "easeInOut" }}
-      >
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }} className="group h-44 cursor-pointer" style={{ perspective: "1000px" }}>
+      <motion.div className="relative w-full h-full" style={{ transformStyle: "preserve-3d" }} whileHover={{ rotateY: 180 }} transition={{ duration: 0.55, ease: "easeInOut" }}>
         <div className="absolute inset-0 bg-card border-2 border-border flex flex-col items-center justify-center p-6 text-center" style={{ backfaceVisibility: "hidden" }}>
           <Trophy className="w-5 h-5 text-primary/30 mb-3" />
           <h4 className="font-display font-bold uppercase text-card-foreground text-sm leading-tight">{name}</h4>
@@ -80,7 +58,7 @@ function FlipCard({ name, description, index }: { name: string; description: str
   );
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
+// ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   const { toast } = useToast();
 
@@ -92,27 +70,19 @@ export default function Home() {
       const res = await fetch("https://formsubmit.co/ajax/bchevestrier@gmail.com", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email, _subject: "Nouvel abonné Festival George Sand", message: `Nouvelle inscription à l'alerte : ${email}` }),
+        body: JSON.stringify({ email, _subject: "Nouvel abonné Festival George Sand", message: `Nouvelle inscription : ${email}` }),
       });
-      if (res.ok) {
-        toast({ title: "Inscription réussie", description: "Votre inscription a bien été prise en compte.", variant: "success" });
-        form.reset();
-      } else throw new Error();
-    } catch {
-      toast({ title: "Erreur", description: "Une erreur est survenue. Veuillez réessayer.", variant: "destructive" });
-    }
+      if (res.ok) { toast({ title: "Inscription réussie", description: "Nous vous contacterons dès l'ouverture.", variant: "success" }); form.reset(); }
+      else throw new Error();
+    } catch { toast({ title: "Erreur", description: "Une erreur est survenue. Veuillez réessayer.", variant: "destructive" }); }
   };
 
-  // Scroll progress bar
   const { scrollYProgress: pageProgress } = useScroll();
-
-  // Hero parallax
   const heroRef = useRef<HTMLElement>(null);
   const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroImageY = useTransform(scrollYProgress, [0, 1], isMobile ? ["0%", "0%"] : ["0%", "25%"]);
   const heroImageScale = useTransform(scrollYProgress, [0, 1], isMobile ? [1, 1] : [1, 1.15]);
-  const heroContentY = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [0, 120]);
   const heroContentOpacity = useTransform(scrollYProgress, [0, 0.5], isMobile ? [1, 1] : [1, 0]);
 
   const titleWords = ["Festival", "George Sand"];
@@ -130,28 +100,24 @@ export default function Home() {
   ];
 
   const calendarItems = [
-    { num: "01", date: "15 Fév. 2026",     text: "Ouverture des candidatures pour la résidence de production audiovisuelle" },
-    { num: "02", date: "26 Avr. 2026",     text: "Fin de la période de candidature pour la résidence" },
-    { num: "03", date: "8–10 Mai 2026",    text: "Résidence de production audiovisuelle à La Châtre", highlight: true },
-    { num: "04", date: "8 Juin 2026",      text: "Début de l'appel à films" },
-    { num: "05", date: "6 Sep. 2026",      text: "Clôture de l'appel à films" },
-    { num: "06", date: "10 & 11 Oct. 2026",text: "Projections et cérémonie du Festival George Sand du court métrage à La Châtre", highlight: true },
+    { num: "01", date: "15 Fév. 2026",      text: "Ouverture des candidatures pour la résidence de production audiovisuelle", color: "violet" },
+    { num: "02", date: "26 Avr. 2026",      text: "Fin de la période de candidature pour la résidence", color: "violet" },
+    { num: "03", date: "8–10 Mai 2026",     text: "Résidence de production audiovisuelle à La Châtre", highlight: true, color: "yellow" },
+    { num: "04", date: "8 Juin 2026",       text: "Début de l'appel à films", color: "violet" },
+    { num: "05", date: "6 Sep. 2026",       text: "Clôture de l'appel à films", color: "violet" },
+    { num: "06", date: "10 & 11 Oct. 2026", text: "Projections et cérémonie du Festival George Sand du court métrage à La Châtre", highlight: true, color: "yellow" },
   ];
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
 
-      {/* ── Barre de progression ───────────────────────────────────────── */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] z-[200] origin-left bg-accent"
-        style={{ scaleX: pageProgress }}
-      />
-
+      {/* ── Barre de progression ── */}
+      <motion.div className="fixed top-0 left-0 right-0 h-[3px] z-[200] origin-left bg-accent" style={{ scaleX: pageProgress }} />
       <Navbar />
 
-      {/* ════════════════════════════════════════════════════════════════
+      {/* ════════════════════════════════════════════════════════
           1. HERO
-      ════════════════════════════════════════════════════════════════ */}
+      ════════════════════════════════════════════════════════ */}
       <section ref={heroRef} className="relative overflow-hidden bg-black" style={{ height: "100svh", minHeight: "600px" }}>
         <motion.div className="absolute inset-0 z-0" style={{ y: heroImageY, scale: heroImageScale }}>
           <img src="/hero-bg.jpg" alt="Hero" className="w-full h-full object-cover" style={{ objectPosition: "70% center" }} />
@@ -161,10 +127,7 @@ export default function Home() {
         <div className="grain-overlay z-[2]" style={{ opacity: 0.13 }} />
         <div className="grain-overlay z-[2]" style={{ opacity: 0.06, animationDirection: "reverse", animationDuration: "0.25s" }} />
 
-        <motion.div
-          className="absolute left-0 right-0 z-10 px-6 sm:px-10 lg:px-16 xl:px-24"
-          style={{ bottom: "clamp(2rem, 5vh, 4rem)", y: heroContentY, opacity: heroContentOpacity }}
-        >
+        <motion.div className="absolute left-0 right-0 z-10 px-6 sm:px-10 lg:px-16 xl:px-24" style={{ bottom: "clamp(2rem, 5vh, 4rem)", opacity: heroContentOpacity }}>
           <div className="max-w-2xl mx-auto lg:mx-0">
             <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="origin-left mb-6 hidden sm:block">
               <div className="flex items-center gap-4">
@@ -226,12 +189,12 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ── Marquee #1 ──────────────────────────────────────────────────── */}
+      {/* ── Marquee #1 ── */}
       <MarqueeStrip />
 
-      {/* ════════════════════════════════════════════════════════════════
+      {/* ════════════════════════════════════════════════════════
           2. À PROPOS
-      ════════════════════════════════════════════════════════════════ */}
+      ════════════════════════════════════════════════════════ */}
       <section id="apropos" className="py-24 bg-background relative overflow-hidden">
         <div className="grain-overlay" style={{ opacity: 0.035 }} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -242,23 +205,19 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* Compteurs */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className="grid grid-cols-3 gap-0 border-2 border-foreground mb-16">
             {[
-              { value: 15,  suffix: " min",   label: "Durée maximale" },
-              { value: 20,  suffix: " films",  label: "En compétition" },
-              { value: 8,   suffix: " prix",   label: "Catégories" },
+              { value: 15, suffix: " min",   label: "Durée maximale" },
+              { value: 20, suffix: " films",  label: "En compétition" },
+              { value: 8,  suffix: " prix",   label: "Catégories" },
             ].map((item, i) => (
               <div key={i} className={cn("p-6 md:p-10 text-center", i < 2 ? "border-r-2 border-foreground" : "")}>
-                <div className="text-4xl md:text-6xl font-display font-black text-primary mb-2">
-                  <AnimatedCounter value={item.value} suffix={item.suffix} />
-                </div>
+                <div className="text-4xl md:text-6xl font-display font-black text-primary mb-2"><AnimatedCounter value={item.value} suffix={item.suffix} /></div>
                 <div className="text-xs font-display font-bold uppercase tracking-[0.2em] text-muted-foreground">{item.label}</div>
               </div>
             ))}
           </motion.div>
 
-          {/* Two-col : texte + portrait */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="space-y-6 text-lg text-muted-foreground">
               <div className="grid grid-cols-3 gap-0 border-2 border-foreground mb-8">
@@ -290,7 +249,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Bandeau anniversaire */}
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.35 }}>
             <div className="bg-foreground text-background px-10 py-6 flex items-center justify-center">
               <span className="font-display font-bold uppercase tracking-widest text-sm text-center">Dans le cadre du 150ème anniversaire de la mort de George Sand</span>
@@ -307,31 +265,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Marquee #2 (noir) ───────────────────────────────────────────── */}
+      {/* ── Marquee #2 (noir) ── */}
       <MarqueeStrip dark />
 
-      {/* ════════════════════════════════════════════════════════════════
-          3. CALENDRIER — photo de fond + timeline épurée
-      ════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════
+          3. CALENDRIER — fond DSCF2248 + timeline colorée
+      ════════════════════════════════════════════════════════ */}
       <section id="calendrier" className="relative overflow-hidden text-white">
-        {/* Photo background */}
         <div className="absolute inset-0 z-0">
-          <img src="/hero-bg.jpg" alt="" className="w-full h-full object-cover" style={{ objectPosition: "60% center" }} />
-          <div className="absolute inset-0 bg-black/82" />
+          <img src="/DSCF2248.jpg" alt="" className="w-full h-full object-cover" style={{ objectPosition: "center center", transform: "translateZ(0)" }} />
+          {/* Overlay dégradé : violet gauche → noir droite */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-black/70 to-black/80" />
         </div>
-        <div className="grain-overlay z-[1]" style={{ opacity: 0.11 }} />
+        <div className="grain-overlay z-[1]" style={{ opacity: 0.1 }} />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-28">
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-20">
             <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
             <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-4">Calendrier</h2>
-            <p className="font-serif text-white/50 max-w-xl">Les grandes étapes de l'édition 2026.</p>
+            <p className="font-serif text-white/60 max-w-xl">Les grandes étapes de l'édition 2026.</p>
           </motion.div>
 
           {/* Timeline */}
           <div className="relative">
-            {/* Ligne verticale */}
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-white/15" />
+            {/* Ligne verticale dégradée violet → jaune */}
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, hsl(261 59% 55%), hsl(60 100% 75%))" }} />
 
             <div className="space-y-0">
               {calendarItems.map((item, i) => (
@@ -342,44 +300,44 @@ export default function Home() {
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   className={cn(
-                    "relative pl-16 md:pl-24 pr-6 py-8 group transition-colors duration-300",
+                    "relative pl-16 md:pl-24 pr-6 py-8 group transition-all duration-300",
                     i < calendarItems.length - 1 ? "border-b border-white/8" : "",
-                    item.highlight ? "hover:bg-white/5" : "hover:bg-white/3"
+                    item.highlight ? "hover:bg-primary-foreground/10" : "hover:bg-primary/15"
                   )}
                 >
-                  {/* Dot on timeline */}
+                  {/* Dot coloré */}
                   <div className={cn(
-                    "absolute left-4 md:left-5 top-1/2 -translate-y-1/2 w-4 h-4 border-2 transition-colors duration-300",
+                    "absolute left-[18px] md:left-[26px] top-1/2 -translate-y-1/2 w-4 h-4 border-2 transition-all duration-300",
                     item.highlight
-                      ? "bg-primary-foreground border-primary-foreground"
-                      : "bg-transparent border-white/30 group-hover:border-primary"
+                      ? "bg-primary-foreground border-primary-foreground shadow-[0_0_12px_hsl(60_100%_75%/0.6)]"
+                      : "bg-primary border-primary/80 group-hover:shadow-[0_0_8px_hsl(261_59%_55%/0.5)]"
                   )} />
 
-                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-8">
-                    {/* Number watermark */}
-                    <span className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 font-display font-black text-6xl md:text-8xl select-none pointer-events-none text-white/4 group-hover:text-white/6 transition-colors">
-                      {item.num}
-                    </span>
-
+                  <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
+                      {/* Date colorée */}
                       <div className={cn(
                         "text-xs font-display font-bold uppercase tracking-[0.25em] mb-2",
-                        item.highlight ? "text-primary-foreground" : "text-white/40"
+                        item.highlight ? "text-primary-foreground" : "text-primary/80 group-hover:text-primary-foreground/80"
                       )}>
                         {item.date}
                       </div>
                       <p className={cn(
-                        "font-serif text-lg leading-snug max-w-xl",
-                        item.highlight ? "text-white font-semibold" : "text-white/70 group-hover:text-white/90"
+                        "font-serif text-lg leading-snug max-w-xl transition-colors",
+                        item.highlight ? "text-white font-semibold" : "text-white/70 group-hover:text-white/95"
                       )}>
                         {item.text}
                       </p>
                     </div>
-
-                    {item.highlight && (
-                      <Trophy className="w-5 h-5 text-primary-foreground/60 shrink-0 mt-1 sm:mt-0" />
-                    )}
+                    {/* Numéro watermark coloré */}
+                    <span className={cn(
+                      "font-display font-black text-5xl md:text-7xl select-none pointer-events-none shrink-0 leading-none",
+                      item.highlight ? "text-primary-foreground/20" : "text-primary/20"
+                    )}>
+                      {item.num}
+                    </span>
                   </div>
+                  {item.highlight && <Trophy className="w-4 h-4 text-primary-foreground/50 mt-3" />}
                 </motion.div>
               ))}
             </div>
@@ -387,49 +345,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          4. LA RÉSIDENCE — split écran photo / contenu
-      ════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════
+          4. LA RÉSIDENCE — split photo / contenu
+      ════════════════════════════════════════════════════════ */}
       <section id="residence" className="relative overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen lg:min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
 
-          {/* Colonne gauche — photo plein cadre */}
-          <div className="relative overflow-hidden" style={{ minHeight: "320px" }}>
-            <img src="/DSCF2163.jpg" alt="En tournage" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "center center" }} />
-            {/* Overlay violet pour cohérence de marque */}
-            <div className="absolute inset-0 bg-primary/75" />
-            <div className="grain-overlay" style={{ opacity: 0.12 }} />
+          {/* Colonne gauche — photo + affiche */}
+          <div className="relative overflow-hidden" style={{ minHeight: "480px" }}>
+            {/* Image avec GPU layer pour éviter le tressautement */}
+            <img
+              src="/DSCF2163.jpg" alt="En tournage"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: "center center", transform: "translateZ(0)", willChange: "auto" }}
+            />
+            <div className="absolute inset-0 bg-primary/78" />
+            <div className="grain-overlay" style={{ opacity: 0.09 }} />
 
-            {/* Contenu superposé sur la photo */}
-            <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 lg:p-16" style={{ minHeight: "380px" }}>
+            <div className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 lg:p-16" style={{ minHeight: "480px" }}>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
                 <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase text-primary-foreground mb-4 leading-tight">
                   La<br />Résidence
                 </h2>
-                <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-6">
+                <div className="inline-block bg-accent text-primary px-4 py-2 font-display font-bold uppercase tracking-wider text-sm mb-4">
                   Du 8 au 10 mai 2026 · La Châtre
                 </div>
-                <p className="text-xl font-serif text-white/80 max-w-sm leading-relaxed">
+                <p className="text-lg font-serif text-white/80 max-w-sm leading-relaxed">
                   Apprenez les bases de la création d'un film en 3 jours, aux côtés de professionnels.
                 </p>
+              </motion.div>
+
+              {/* Affiche résidence */}
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }} className="mt-8">
+                <img
+                  src="/Affiche-residence.jpg"
+                  alt="Affiche de la Résidence"
+                  className="w-40 md:w-48 object-contain shadow-2xl border border-white/20 hover:scale-105 transition-transform duration-300"
+                />
               </motion.div>
             </div>
           </div>
 
-          {/* Colonne droite — contenu sur fond sombre */}
+          {/* Colonne droite — contenu sombre */}
           <div className="bg-black text-white relative">
             <div className="grain-overlay" style={{ opacity: 0.08 }} />
             <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full">
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }}>
 
-                {/* Description */}
                 <p className="text-lg font-serif text-white/80 mb-8 leading-relaxed">
                   À destination de <strong className="text-white">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
                 </p>
 
                 {/* Programme */}
-                <div className="space-y-0 mb-10 border border-white/10">
+                <div className="space-y-0 mb-8 border border-white/10">
                   {[
                     { step: "Jour 1", label: "Atelier d'écriture de scénario" },
                     { step: "Jour 2", label: "Tournage des séquences" },
@@ -443,28 +412,35 @@ export default function Home() {
                 </div>
 
                 {/* Infos pratiques */}
-                <div className="grid grid-cols-2 gap-0 border border-white/10 mb-8">
-                  <div className="p-5 border-r border-white/10">
+                <div className="grid grid-cols-2 gap-0 border border-white/10 mb-6">
+                  <div className="p-4 border-r border-white/10">
                     <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Lieu</div>
-                    <div className="font-serif text-white">La Châtre</div>
+                    <div className="font-serif text-white text-sm">La Châtre</div>
                   </div>
-                  <div className="p-5">
+                  <div className="p-4">
                     <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Tarif</div>
-                    <div className="font-display font-black text-primary-foreground text-xl">Gratuit</div>
+                    <div className="font-display font-black text-primary-foreground text-lg">Gratuit</div>
                   </div>
-                  <div className="p-5 border-t border-r border-white/10">
+                  <div className="p-4 border-t border-r border-white/10">
                     <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Horaires</div>
                     <div className="font-serif text-white text-sm">9h30 – 18h00</div>
                   </div>
-                  <div className="p-5 border-t border-white/10">
+                  <div className="p-4 border-t border-white/10">
                     <div className="text-xs font-display font-bold uppercase tracking-widest text-white/30 mb-1">Places</div>
-                    <div className="font-serif text-white">15 participants</div>
+                    <div className="font-serif text-white text-sm">15 participants</div>
                   </div>
                 </div>
 
-                <p className="text-sm font-display font-bold uppercase tracking-wider text-destructive mb-6">
-                  ↳ Candidatures avant le 26 avril 2026
-                </p>
+                {/* Webinaire */}
+                <div className="flex items-center gap-4 bg-primary/20 border border-primary/40 px-5 py-4 mb-6">
+                  <Video className="w-5 h-5 text-primary-foreground shrink-0" />
+                  <div>
+                    <p className="font-display font-bold text-xs uppercase tracking-widest text-primary-foreground">Webinaire de présentation</p>
+                    <p className="font-serif text-white/80 text-sm">22 avril 2026 · 19h00</p>
+                  </div>
+                </div>
+
+                <p className="text-sm font-display font-bold uppercase tracking-wider text-destructive mb-6">↳ Candidatures avant le 26 avril 2026</p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button variant="primary" asChild className="flex-1">
@@ -484,83 +460,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          5. GALERIE — En tournage
-      ════════════════════════════════════════════════════════════════ */}
-      <section className="bg-black overflow-hidden relative">
-        <div className="grain-overlay" style={{ opacity: 0.13 }} />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
-            <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white">En Tournage</h2>
-            <p className="font-serif text-white/40 mt-3 italic">Derrière la caméra — Berry, 2026</p>
-          </motion.div>
+      {/* ════════════════════════════════════════════════════════
+          5. CANDIDATER — fond sombre + affiche festival
+      ════════════════════════════════════════════════════════ */}
+      <section id="proposer" className="relative overflow-hidden bg-black text-white">
+        {/* Photo de tournage en fond très subtil */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <img src="/DSCF2151.jpg" alt="" className="w-full h-full object-cover" style={{ opacity: 0.08, transform: "translateZ(0)" }} />
+          <div className="absolute inset-0 bg-black/80" />
         </div>
-
-        {/* Grille mosaïque */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 relative z-10">
-          {[
-            { src: "/DSCF2248.jpg",    pos: "center center", cls: "col-span-2 row-span-2" },
-            { src: "/A7S.jpg",         pos: "center center", cls: "" },
-            { src: "/EPAULIERE.jpg",   pos: "center center", cls: "" },
-            { src: "/H4N.jpg",         pos: "center center", cls: "" },
-            { src: "/Maze2.jpeg",      pos: "center center", cls: "" },
-            { src: "/DSCF2151.jpg",    pos: "center center", cls: "col-span-2" },
-            { src: "/Ronin.png",       pos: "center center", cls: "" },
-            { src: "/STORY BOARD.jpg", pos: "center top",    cls: "" },
-            { src: "/Maze3.jpeg",      pos: "center center", cls: "" },
-          ].map((item, i) => (
-            <motion.div
-              key={i}
-              className={cn("relative overflow-hidden group cursor-pointer aspect-square", item.cls)}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.7, delay: i * 0.06 }}
-            >
-              <motion.img
-                src={item.src}
-                alt=""
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                style={{ objectPosition: item.pos }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-              />
-              <div className="absolute inset-0 bg-black/45 group-hover:bg-black/10 transition-all duration-700" />
-              <div className="grain-overlay" style={{ opacity: 0.07 }} />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-10">
-          <p className="font-display text-xs text-white/20 uppercase tracking-widest text-center">
-            Festival George Sand du Court Métrage · La Châtre · Berry
-          </p>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════
-          5. CANDIDATER / PROPOSER UN FILM
-          George Sand en fond décoratif
-      ════════════════════════════════════════════════════════════════ */}
-      <section id="proposer" className="relative overflow-hidden bg-background">
-        {/* Portrait GS en arrière-plan, côté droit */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 z-0 pointer-events-none">
-          <img src="/george-sand-violet.png" alt="" className="w-full h-full object-cover object-top" style={{ opacity: 0.07 }} />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-background/20" />
-        </div>
-        <div className="grain-overlay z-[1]" style={{ opacity: 0.04 }} />
+        <div className="grain-overlay z-[1]" style={{ opacity: 0.09 }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-
-          {/* Header */}
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
-            <div className="h-[2px] w-12 bg-primary mb-6" />
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-foreground mb-4">
-              Candidater
-            </h2>
-            <p className="text-xl font-serif text-muted-foreground max-w-xl leading-relaxed border-l-4 border-primary pl-6">
+            <div className="h-[2px] w-12 bg-primary-foreground mb-6" />
+            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white mb-4">Candidater</h2>
+            <p className="text-xl font-serif text-white/60 max-w-xl leading-relaxed border-l-4 border-primary pl-6">
               Proposez une courte histoire qui raconte notre monde sous le prisme de la modernité de George Sand.
             </p>
           </motion.div>
@@ -570,128 +485,121 @@ export default function Home() {
             {/* Colonne gauche : infos */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-10">
 
-              {/* Conditions */}
               <div>
-                <h3 className="font-display font-bold uppercase tracking-widest text-xs text-muted-foreground mb-5">Conditions d'admission</h3>
-                <div className="space-y-0 border-2 border-foreground">
+                <h3 className="font-display font-bold uppercase tracking-widest text-xs text-white/40 mb-5">Conditions d'admission</h3>
+                <div className="border border-white/15">
                   {[
                     { icon: <Play className="w-4 h-4" />, text: "Fiction, documentaire ou animation" },
                     { icon: <Clock className="w-4 h-4" />, text: "Durée inférieure à 15 minutes" },
                     { icon: <Trophy className="w-4 h-4" />, text: "Lié aux idées ou à la vie de George Sand" },
                   ].map((item, i) => (
-                    <div key={i} className={cn("flex items-center gap-4 px-6 py-4 group hover:bg-foreground hover:text-background transition-colors", i < 2 ? "border-b-2 border-foreground" : "")}>
-                      <span className="text-primary group-hover:text-background transition-colors">{item.icon}</span>
-                      <span className="font-sans text-foreground group-hover:text-background transition-colors">{item.text}</span>
+                    <div key={i} className={cn("flex items-center gap-4 px-6 py-4 group hover:bg-white/5 transition-colors", i < 2 ? "border-b border-white/10" : "")}>
+                      <span className="text-primary-foreground">{item.icon}</span>
+                      <span className="font-sans text-white/80 group-hover:text-white transition-colors">{item.text}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Thèmes */}
               <div>
-                <h3 className="font-display font-bold uppercase tracking-widest text-xs text-muted-foreground mb-5">Exemples de thèmes</h3>
+                <h3 className="font-display font-bold uppercase tracking-widest text-xs text-white/40 mb-5">Exemples de thèmes</h3>
                 <div className="flex flex-wrap gap-2">
                   {["Émancipation", "Écologie", "Engagement politique", "Proximité du territoire", "Légendes"].map((theme) => (
-                    <span key={theme} className="px-4 py-2 border-2 border-foreground font-display text-sm uppercase tracking-wide hover:bg-foreground hover:text-background transition-colors cursor-default">
+                    <span key={theme} className="px-4 py-2 border border-white/20 font-display text-sm uppercase tracking-wide text-white/70 hover:border-primary-foreground hover:text-primary-foreground transition-colors cursor-default">
                       {theme}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Dépôt */}
-              <div className="bg-foreground text-background p-8">
-                <div className="text-xs font-display font-bold uppercase tracking-widest text-background/50 mb-4">Dépôt des films</div>
-                <p className="font-display font-bold text-2xl mb-2">8 juin — 6 sept. 2026</p>
-                <p className="font-serif text-background/70 text-sm mb-6">Ouvert à toutes et à tous, professionnels ou amateurs.</p>
-                <div className="flex items-center justify-between border-t border-background/20 pt-4">
-                  <span className="font-display font-bold uppercase text-xs tracking-widest text-background/50">Frais d'inscription</span>
+              <div className="bg-primary/20 border border-primary/40 p-8">
+                <div className="text-xs font-display font-bold uppercase tracking-widest text-white/40 mb-4">Dépôt des films</div>
+                <p className="font-display font-bold text-2xl text-white mb-2">8 juin — 6 sept. 2026</p>
+                <p className="font-serif text-white/60 text-sm mb-6">Ouvert à toutes et à tous, professionnels ou amateurs.</p>
+                <div className="flex items-center justify-between border-t border-white/10 pt-4">
+                  <span className="font-display font-bold uppercase text-xs tracking-widest text-white/40">Frais d'inscription</span>
                   <span className="font-display font-black text-2xl text-primary-foreground">12€</span>
                 </div>
               </div>
             </motion.div>
 
-            {/* Colonne droite : formulaire alerte */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-col justify-start">
-              <div className="border-2 border-foreground bg-background p-8 md:p-10">
-                <div className="w-12 h-[3px] bg-primary mb-8" />
-                <h3 className="text-2xl font-display font-bold uppercase mb-2 text-foreground">
-                  Être alerté dès l'ouverture
-                </h3>
-                <p className="font-serif text-muted-foreground mb-8">
-                  Soyez informé par mail dès l'ouverture du concours le <strong className="text-foreground">8 juin 2026</strong>.
+            {/* Colonne droite : formulaire + affiche festival */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex flex-col gap-8">
+
+              {/* Formulaire */}
+              <div className="border border-white/15 bg-white/4 p-8 md:p-10">
+                <div className="w-12 h-[3px] bg-primary-foreground mb-8" />
+                <h3 className="text-2xl font-display font-bold uppercase mb-2 text-white">Être alerté dès l'ouverture</h3>
+                <p className="font-serif text-white/60 mb-8">
+                  Soyez informé par mail dès l'ouverture du concours le <strong className="text-white">8 juin 2026</strong>.
                 </p>
                 <form onSubmit={handleSubscribe} className="space-y-5">
                   <div className="space-y-2">
-                    <label htmlFor="email" className="font-display font-bold text-xs uppercase tracking-widest text-foreground">
-                      Adresse e-mail
-                    </label>
-                    <Input id="email" type="email" required placeholder="votre@email.com" className="border-2 border-foreground focus-visible:border-primary h-12" />
+                    <label htmlFor="email" className="font-display font-bold text-xs uppercase tracking-widest text-white/60">Adresse e-mail</label>
+                    <Input id="email" type="email" required placeholder="votre@email.com" className="border border-white/20 bg-white/5 text-white placeholder:text-white/30 focus-visible:border-primary-foreground h-12" />
                   </div>
-                  <Button type="submit" variant="primary" className="w-full h-12 font-display uppercase tracking-wider">
-                    M'alerter à l'ouverture
-                  </Button>
-                  <p className="text-xs text-muted-foreground text-center">
-                    Aucun spam — uniquement l'annonce d'ouverture du concours.
-                  </p>
+                  <Button type="submit" variant="primary" className="w-full h-12 font-display uppercase tracking-wider">M'alerter à l'ouverture</Button>
+                  <p className="text-xs text-white/30 text-center">Aucun spam — uniquement l'annonce d'ouverture du concours.</p>
                 </form>
-
-                {/* Séparateur */}
-                <div className="border-t-2 border-foreground mt-8 pt-8">
-                  <p className="font-display font-bold uppercase text-xs tracking-widest text-muted-foreground mb-4">Candidatures pour la Résidence</p>
-                  <Button variant="outline" className="w-full border-2 border-foreground h-12 font-display uppercase tracking-wider" asChild>
+                <div className="border-t border-white/10 mt-8 pt-8">
+                  <p className="font-display font-bold uppercase text-xs tracking-widest text-white/40 mb-4">Candidatures pour la Résidence</p>
+                  <Button variant="outline" className="w-full border border-white/25 text-white hover:bg-white hover:text-black h-12 font-display uppercase tracking-wider" asChild>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtRkqnlMNJ7Zmi0_1yRqs-nIIX9GbcU2YKUzyPg3rRPRLl1A/viewform" target="_blank" rel="noopener noreferrer">
                       Candidater à la résidence →
                     </a>
                   </Button>
                 </div>
               </div>
+
+              {/* Affiche festival */}
+              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex items-center gap-6 border border-white/10 p-6 group hover:border-white/25 transition-colors">
+                <img src="/Festival-George-Sand-affiche.jpg" alt="Affiche Festival George Sand" className="w-24 md:w-32 shrink-0 object-contain shadow-xl group-hover:scale-105 transition-transform duration-300" />
+                <div>
+                  <p className="font-display font-bold uppercase tracking-widest text-xs text-white/40 mb-2">Affiche officielle</p>
+                  <p className="font-display font-bold text-white text-lg uppercase leading-tight mb-1">Festival George Sand<br />du court métrage</p>
+                  <p className="font-serif text-white/50 text-sm">10 & 11 octobre 2026 · La Châtre</p>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── Marquee #3 ──────────────────────────────────────────────────── */}
+      {/* ── Marquee #3 ── */}
       <MarqueeStrip dark />
 
-      {/* ════════════════════════════════════════════════════════════════
-          6. SÉLECTION & PRIX — flip cards
-      ════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════
+          6. SÉLECTION & PRIX
+      ════════════════════════════════════════════════════════ */}
       <section id="prix" className="py-24 bg-background relative overflow-hidden">
         <div className="grain-overlay" style={{ opacity: 0.03 }} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 text-foreground">Sélection & Prix</h2>
-            <p className="text-xl font-serif text-muted-foreground">
-              <strong>20 courts-métrages</strong> seront sélectionnés pour participer à la compétition. Annonce fin septembre 2026.
-            </p>
+            <p className="text-xl font-serif text-muted-foreground"><strong>20 courts-métrages</strong> seront sélectionnés pour participer à la compétition. Annonce fin septembre 2026.</p>
             <p className="text-xs font-display uppercase tracking-widest text-muted-foreground/40 mt-4">Survolez les cartes pour découvrir chaque prix ↓</p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-            {prizes.map((prix, i) => (
-              <FlipCard key={i} name={prix.name} description={prix.description} index={i} />
-            ))}
+            {prizes.map((prix, i) => <FlipCard key={i} name={prix.name} description={prix.description} index={i} />)}
           </div>
-
           <div className="bg-accent px-8 md:px-16 py-12 text-center">
             <div className="h-[3px] w-12 bg-foreground mx-auto mb-6" />
             <h3 className="text-2xl md:text-3xl font-display font-bold uppercase mb-6 text-foreground">Un Tremplin pour les Créateurs</h3>
             <p className="font-serif text-lg max-w-4xl mx-auto text-foreground/80">
-              Les films lauréats seront projetés et diffusés dans des cinémas de la région Centre.{" "}<br className="hidden md:block" />
+              Les films lauréats seront projetés et diffusés dans des cinémas de la région Centre.<br className="hidden md:block" />
               Chaque lauréat recevra une récompense (matériel technique, accompagnement de projet, aide à la diffusion).
             </p>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
-          7. CONTACT & ÉQUIPE
-      ════════════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════════════════
+          7. CONTACT & ÉQUIPE — fond DSCF2151
+      ════════════════════════════════════════════════════════ */}
       <section id="contact" className="relative overflow-hidden text-background">
         <div className="absolute inset-0 z-0">
-          <img src="/hero-bg.jpg" alt="" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0 bg-primary/90" />
+          <img src="/DSCF2151.jpg" alt="" className="w-full h-full object-cover object-center" style={{ transform: "translateZ(0)" }} />
+          <div className="absolute inset-0 bg-primary/88" />
         </div>
         <div className="grain-overlay z-[1]" style={{ opacity: 0.1 }} />
 
@@ -708,8 +616,8 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
               {[
-                { name: "Pauline Michel",   role: "Productrice audiovisuelle", photo: "/Pauline.jpg",  email: "pauline.c.michel@gmail.com", phone: "06 81 79 53 09", tag: "Contact Prix" },
-                { name: "Thibaud Deschamps", role: "Monteur & Réalisateur",    photo: "/Thibaud.jpg", email: "thib.deschamps@hotmail.fr",   phone: "06 75 13 17 54", tag: "Contact Résidence" },
+                { name: "Pauline Michel",    role: "Productrice audiovisuelle", photo: "/Pauline.jpg",  email: "pauline.c.michel@gmail.com", phone: "06 81 79 53 09", tag: "Contact Prix" },
+                { name: "Thibaud Deschamps", role: "Monteur & Réalisateur",     photo: "/Thibaud.jpg", email: "thib.deschamps@hotmail.fr",   phone: "06 75 13 17 54", tag: "Contact Résidence" },
               ].map((person, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} className="bg-background p-8">
                   <div className="flex items-start gap-6">
@@ -732,7 +640,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Équipe élargie */}
             <div className="mb-20">
               <h3 className="text-xs font-display font-bold uppercase tracking-[0.2em] text-background/50 mb-8">Association Culture en Vallée Noire</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-16">
@@ -773,9 +680,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════
+      {/* ════════════════════════════════════════════════════════
           8. PARTENAIRES
-      ════════════════════════════════════════════════════════════════ */}
+      ════════════════════════════════════════════════════════ */}
       <section className="py-20 bg-background border-t border-border relative overflow-hidden">
         <div className="grain-overlay" style={{ opacity: 0.03 }} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -786,7 +693,6 @@ export default function Home() {
               Nous remercions chaleureusement tous nos partenaires sans qui ce festival n'aurait pas pu voir le jour.
             </p>
           </motion.div>
-
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="flex justify-center items-center gap-12 flex-wrap mb-10">
             <img src="/CVN_logo-02.png" alt="Culture en Vallée Noire" className="h-24 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             <a href="https://www.lachatre.fr/" target="_blank" rel="noopener noreferrer" className="flex items-center">
@@ -799,13 +705,9 @@ export default function Home() {
               <img src="/Nouvelles_Rennaissances_Label_Noir.png" alt="Nouvelles Renaissances" className="h-24 object-contain opacity-70 hover:opacity-100 transition-opacity" />
             </a>
           </motion.div>
-
-          <p className="font-serif text-muted-foreground mb-6">
-            Porté par l'association <strong className="text-foreground">Culture en Vallée Noire</strong>, présidée par Xavier Couture.
-          </p>
+          <p className="font-serif text-muted-foreground mb-6">Porté par l'association <strong className="text-foreground">Culture en Vallée Noire</strong>, présidée par Xavier Couture.</p>
           <a href="mailto:cultureenvalleenoire@gmail.com" className="inline-flex items-center gap-2 text-primary font-bold hover:underline text-sm">
-            <Mail className="w-4 h-4" />
-            cultureenvalleenoire@gmail.com
+            <Mail className="w-4 h-4" />cultureenvalleenoire@gmail.com
           </a>
         </div>
       </section>
