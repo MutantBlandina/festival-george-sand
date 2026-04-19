@@ -385,45 +385,46 @@ export default function Home() {
           </div>
 
           {/* Colonne droite — fond noir, contenu cinématographique */}
-          <div className="bg-card text-card-foreground relative">
-            <div className="grain-overlay" style={{ opacity: 0.05 }} />
+          {/* Colonne droite — fond blanc, mise en page soignée */}
+          <div className="bg-background text-foreground relative">
             <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col justify-center h-full">
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }}>
 
-                <p className="text-lg font-serif text-card-foreground/60 mb-10 leading-relaxed">
-                  À destination de <strong className="text-card-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
+                {/* Intro avec accent violet à gauche */}
+                <p className="text-lg font-serif text-muted-foreground mb-10 leading-relaxed border-l-4 border-primary pl-5">
+                  À destination de <strong className="text-foreground">15 non-professionnels</strong> (à partir de 14 ans). Trois jours intensifs pour créer, filmer et monter un court métrage.
                 </p>
 
-                {/* Programme */}
-                <div className="mb-10 space-y-4">
+                {/* Programme — jours en violet, labels en serif */}
+                <div className="mb-10 space-y-5">
                   {[
                     { step: "Jour 1", label: "Atelier d'écriture de scénario" },
                     { step: "Jour 2", label: "Tournage des séquences" },
                     { step: "Jour 3", label: "Montage, mixage, étalonnage & musique à l'image" },
                   ].map((s, i) => (
-                    <div key={i} className="flex items-baseline gap-3">
-                      <span className="font-display font-bold text-xs uppercase tracking-widest text-primary-foreground shrink-0">{s.step} —</span>
-                      <span className="font-serif text-card-foreground/70 text-sm">{s.label}</span>
+                    <div key={i} className="flex items-start gap-4">
+                      <span className="font-display font-black text-xs uppercase tracking-widest text-primary pt-1 w-14 shrink-0">{s.step}</span>
+                      <span className="font-serif text-foreground/80 text-base leading-snug">{s.label}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Infos pratiques — légères, sans tableau lourd */}
-                <div className="grid grid-cols-2 gap-6 mb-10 border-t border-b border-card-foreground/10 py-8">
+                {/* Infos pratiques — grille légère, séparateurs fins */}
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6 mb-10 py-8 border-t border-b border-foreground/10">
                   {[
-                    { label: "Lieu",     value: "La Châtre",       accent: false },
-                    { label: "Tarif",    value: "Gratuit",          accent: true  },
-                    { label: "Horaires", value: "9h30 – 18h00",     accent: false },
-                    { label: "Places",   value: "15 participants",  accent: false },
+                    { label: "Lieu",     value: "La Châtre",      big: false },
+                    { label: "Tarif",    value: "Gratuit",         big: true  },
+                    { label: "Horaires", value: "9h30 – 18h00",    big: false },
+                    { label: "Places",   value: "15 participants", big: false },
                   ].map((item, i) => (
                     <div key={i}>
-                      <div className="text-xs font-display font-bold uppercase tracking-widest text-card-foreground/30 mb-1">{item.label}</div>
-                      <div className={cn("font-display font-bold", item.accent ? "text-xl text-primary-foreground" : "text-sm text-card-foreground")}>{item.value}</div>
+                      <div className="text-xs font-display font-bold uppercase tracking-widest text-muted-foreground mb-1">{item.label}</div>
+                      <div className={cn("font-display font-bold", item.big ? "text-2xl text-primary" : "text-sm text-foreground")}>{item.value}</div>
                     </div>
                   ))}
                 </div>
 
-                {/* Webinaire — bloc jaune */}
+                {/* Webinaire — bloc jaune vif, lisible sur fond blanc */}
                 <div className="flex items-center gap-4 bg-accent px-5 py-4 mb-6">
                   <Video className="w-5 h-5 text-primary shrink-0" />
                   <div>
@@ -440,7 +441,7 @@ export default function Home() {
                       Déposer sa candidature
                     </a>
                   </Button>
-                  <Button variant="outline" className="border border-card-foreground/25 text-card-foreground hover:bg-card-foreground hover:text-card flex-1" asChild>
+                  <Button variant="outline" className="border-2 border-foreground/20 text-foreground hover:bg-foreground hover:text-background flex-1" asChild>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNmXw0NpdNKbJCDFc23NzlE7mGRtpUDShk4Vg1f3PGUzh-3Q/viewform?usp=header" target="_blank" rel="noopener noreferrer">
                       S'inscrire au webinaire
                     </a>
